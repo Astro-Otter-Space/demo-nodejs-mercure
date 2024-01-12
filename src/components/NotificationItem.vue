@@ -3,7 +3,7 @@
     <div class="Message-body">
       <p>{{ notification.message }}</p>
     </div>
-    <button class="Message-close js-messageClose" @click="clickRemove(index)">
+    <button class="Message-close js-messageClose" @click="clickRemove">
       <v-icon icon="mdi-close"></v-icon>
     </button>
   </div>
@@ -16,13 +16,9 @@ const props = defineProps({
   notification: {
     type: Object,
     default: null
-  },
-  index: {
-    type: Number,
-    default: 0
   }
 });
-const { notification, index } = toRefs(props);
+const { notification } = toRefs(props);
 
 const emit = defineEmits(['click-remove']);
 const clickRemove = () => emit('click-remove')
