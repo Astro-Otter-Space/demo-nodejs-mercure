@@ -1,6 +1,6 @@
 <script setup>
-import {onMounted, reactive, ref, watch} from "vue";
-import Notification from "@/components/Notification.vue";
+import {defineAsyncComponent, onMounted, reactive, ref, watch} from "vue";
+const NotificationItem = defineAsyncComponent(() => import('@/components/NotificationItem.vue'));
 
 const urlMercure = ref('https://mercure.astro-otter.space/.well-known/mercure');
 
@@ -31,35 +31,46 @@ const getNotificationsForUser = () => {
   }
 };
 
-onMounted(() => {
-  getNotifications();
-});
+const deleteItem = (index) => notifications.splice(index, 1);
+const deleteUserItem = (index) => usersNotifications.splice(index, 1);
 
+onMounted(() => getNotifications());
 watch(userName, () => getNotificationsForUser());
+
+
 </script>
 
 <template>
-  <main>
-    <h1>MERCURE DEMO</h1>
-    <div class="grid-container">
-      <div class="grid-child">
-        <h2>Global notifications</h2>
-        <Notification v-for="(notification,i) in notifications" :notification="notification" :index="i" v-bind:key="notification"></Notification>
-      </div>
+  <h1>MERCURE DEMO</h1>
 
-      <div class="grid-child">
-        <div>
-          <h2>Notification for user {{ userName }}</h2>
-          <v-text-field
-            v-model="userName"
-            variant="outlined"
-            color="white"
-            clearable
-          >
-          </v-text-field>
-        </div>
-        <hr />
-        <Notification v-for="(uNotification,i) in usersNotifications" :notification="uNotification" :index="i" v-bind:key="uNotification"></Notification>
+  <div class="grid-container">
+    <div class="grid-child">
+      <h2>Global notifications</h2>
+      <NotificationItem
+          v-for="(notification,i) in notifications"
+          :notification="notification"
+          v-bind:key="notification"
+          @click-remove="deleteItem(i)"
+      ></NotificationItem>
     </div>
-  </main>
+
+    <div class="grid-child">
+      <div>
+        <h2>Notification for user {{ userName }}</h2>
+        <input type="text"
+          v-model="userName"
+          variant="outlined"
+          color="white"
+          clearable
+        />
+      </div>
+      <hr />
+      <NotificationItem
+          v-for="(uNotification,i) in usersNotifications"
+          :notification="uNotification"
+          v-bind:key="uNotification"
+          @click-remove="deleteUserItem(i)"
+      ></NotificationItem>
+    </div>
+  </div>
 </template>

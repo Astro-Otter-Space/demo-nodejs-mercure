@@ -3,7 +3,7 @@
     <div class="Message-body">
       <p>{{ notification.message }}</p>
     </div>
-    <button class="Message-close js-messageClose">
+    <button class="Message-close js-messageClose" @click="clickRemove(index)">
       <v-icon icon="mdi-close"></v-icon>
     </button>
   </div>
@@ -24,7 +24,8 @@ const props = defineProps({
 });
 const { notification, index } = toRefs(props);
 
-
+const emit = defineEmits(['click-remove']);
+const clickRemove = () => emit('click-remove')
 </script>
 
 <style scoped lang="scss">

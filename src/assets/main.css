@@ -33,3 +33,16 @@ a,
     padding: 0 2rem;
   }
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  align-content: center;
+  min-width: 1200px;
+}
+
+.grid-child {
+  border: 1px solid white;
+  padding: 0.5em;
+}

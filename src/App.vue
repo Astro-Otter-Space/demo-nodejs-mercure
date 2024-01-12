@@ -1,10 +1,23 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
+import { provide, shallowRef} from "vue";
+
+import router from "@/router";
+import {layouts} from "@/layout";
+
+const layout = shallowRef('div');
+
+router.afterEach((to) => {
+  layout.value = layouts[`${to.meta.layout}`]
+});
+provide('app:layout', layout);
 </script>
 
 <template>
   <v-app>
-    <router-view></router-view>
+    <component :is="layout">
+      <router-view></router-view>
+    </component>
   </v-app>
 </template>
 
