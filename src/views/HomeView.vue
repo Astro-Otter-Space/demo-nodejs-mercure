@@ -2,14 +2,13 @@
 import {defineAsyncComponent, onMounted, reactive, ref, watch} from "vue";
 const NotificationItem = defineAsyncComponent(() => import('@/components/NotificationItem.vue'));
 
-const urlMercure = ref('https://mercure.astro-otter.space/.well-known/mercure');
-
+const urlMercure = ref(process.env.VUE_APP_MERCURE_PUBLIC_URL);
 const userName = ref(null);
 const notifications = reactive([]);
 const usersNotifications = reactive([]);
 
 const getNotifications = () => {
-  const url = new URL(urlMercure.value);
+  const url = new URL(`${urlMercure.value}/.well-known/mercure`);
   url.searchParams.append('topic', 'demo');
 
   const eventSource = new EventSource(url.toString(), {withCredentials: true});
