@@ -1,10 +1,10 @@
 {
-  "name": "api-mercure",
+  "name": "api-poc-mercure",
   "version": "1.0.0",
   "description": "REST API for Mercure (POC)",
   "type": "module",
-  "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "build": "npm run clean && tsc --build tsconfig.json",
     "start": "node --loader ts-node/esm ./dist/server.js"
   },
@@ -20,6 +20,7 @@
     "@types/express": "^4.17.21",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
+    "nodemon": "^3.0.2",
     "ts-node": "^10.9.2"
   }
 }

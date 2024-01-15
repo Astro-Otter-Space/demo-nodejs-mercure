@@ -1,6 +1,6 @@
 {
-  "name": "poc-mercure",
-  "version": "0.0.0",
+  "name": "front-poc-mercure",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vue-cli-service serve",

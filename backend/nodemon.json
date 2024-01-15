@@ -1,0 +1,6 @@
+{
+  "ignore": [".git", "node_modules", "dist"],
+  "watch": ["src"],
+  "ext": "ts, js, mts, json",
+  "exec": "node --loader ts-node/esm src/server.ts"
+}

@@ -1,41 +1,41 @@
 [
   {
-    "id": 1,
+    "uuid": "ee0cf287-65ad-4c51-8e73-f5c9738763b8",
     "title": "Lord of the rings",
     "author": "J.R.R Tolkien",
     "price": 15,
     "stock": 17
   },
   {
-    "id": 2,
+    "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",
     "title": "Harry Potter",
     "author": "J. K. Rowling",
     "price": 15,
     "stock": 23
   },
   {
-    "id": 3,
+    "uuid": "c377559f-a971-4183-8b5b-0d93608d3d5a",
     "title": "A song of ice and fire",
     "author": "G.R.R Martin",
     "price": 14,
     "stock": 18
   },
   {
-    "id": 4,
+    "uuid": "4365441a-7f73-467c-8b64-15ede2f46cec",
     "title": "1984",
     "author": "Georges Orwell",
     "price": 25,
     "stock": 10
   },
   {
-    "id": 5,
+    "uuid": "37effe96-fbf7-4671-9ccd-ebed2f848334",
     "title": "Call of Cthulhu",
     "author": "H. P. Lovecraft",
     "price": 20,
     "stock": 13
   },
   {
-    "id": 6,
+    "uuid": "fb03bbd2-f884-4598-a52a-9248a4610e8e",
     "title": "Foundation",
     "author": "Isaac Asimov",
     "price": 30,
