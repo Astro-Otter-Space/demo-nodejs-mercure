@@ -25,6 +25,8 @@ import {fileDirName} from "./services/fileDirName";
  */
 const app = express();
 const port: number = 3001;
+const { __dirname } = fileDirName(import.meta);
+const fileBooksData: string = join(__dirname, 'data', 'books.json');
 
 /**
  * Routes GET
@@ -34,11 +36,7 @@ app.get('/', (req: Request, res: Response): void => {
 });
 
 app.get('/books', (req: Request, res: Response): void => {
-
-
   try {
-    const { __dirname } = fileDirName(import.meta);
-    const fileBooksData: string = join(__dirname, 'data/books.json');
     const listBooks: Book[] = getBooks(fileBooksData);
     res
       .status(StatusCodes.OK)
@@ -51,6 +49,22 @@ app.get('/books', (req: Request, res: Response): void => {
         error: err
       }
     );
+  }
+});
+
+app.get('/books/:uuid', (req: Request, res: Response): void => {
+  try {
+    const listBooks: Book[] = getBooks(fileBooksData);
+    const book: Book = listBooks.filter((b: Book) => b.uuid === req.params.uuid)[0];
+    res.status(StatusCodes.OK).json(book);
+  } catch (err: unknown) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+          message: (err as Error).message,
+          error: err
+        }
+      );
   }
 });
 
