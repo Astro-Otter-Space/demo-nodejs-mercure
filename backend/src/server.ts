@@ -4,7 +4,7 @@
 import express, { Request, Response } from 'express';
 import {StatusCodes} from 'http-status-codes';
 import { join } from 'path';
-
+import {v4 as uuidv4} from 'uuid';
 /**
  * Types
  */
@@ -19,6 +19,8 @@ import { getBooks } from './repositories/getBooks';
  * Services
  */
 import {fileDirName} from "./services/fileDirName";
+import {getBook} from "./repositories/getBook";
+import {postNewBook} from "./repositories/postNewBook";
 
 /**
  * Express
@@ -27,6 +29,7 @@ const app = express();
 const port: number = 3001;
 const { __dirname } = fileDirName(import.meta);
 const fileBooksData: string = join(__dirname, 'data', 'books.json');
+app.use(express.json());
 
 /**
  * Routes GET
@@ -54,8 +57,7 @@ app.get('/books', (req: Request, res: Response): void => {
 
 app.get('/books/:uuid', (req: Request, res: Response): void => {
   try {
-    const listBooks: Book[] = getBooks(fileBooksData);
-    const book: Book = listBooks.filter((b: Book) => b.uuid === req.params.uuid)[0];
+    const book = getBook(fileBooksData, req.params.uuid);
     res.status(StatusCodes.OK).json(book);
   } catch (err: unknown) {
     res
@@ -72,9 +74,24 @@ app.get('/books/:uuid', (req: Request, res: Response): void => {
  * Routes POST/PUT
  */
 app.post('/books', (req: Request, res: Response): void => {
-  res
-    .status(StatusCodes.CREATED)
-    .end()
+  try {
+    const newBook = req.body;
+    newBook.uuid = uuidv4();
+
+    postNewBook(fileBooksData, newBook);
+    res
+      .status(StatusCodes.CREATED)
+      .end()
+  } catch (err: unknown) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+          message: (err as Error).message,
+          error: err
+        }
+      );
+  }
+
 });
 
 app.put('/books/:uuid', (req: Request, res: Response): void => {
