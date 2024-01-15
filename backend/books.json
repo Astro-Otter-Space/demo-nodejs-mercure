@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "title": "Lord of the rings",
+    "author": "J.R.R Tolkien",
+    "price": 15,
+    "stock": 17
+  },
+  {
+    "id": 2,
+    "title": "Harry Potter",
+    "author": "J. K. Rowling",
+    "price": 15,
+    "stock": 23
+  },
+  {
+    "id": 3,
+    "title": "A song of ice and fire",
+    "author": "G.R.R Martin",
+    "price": 14,
+    "stock": 18
+  },
+  {
+    "id": 4,
+    "title": "1984",
+    "author": "Georges Orwell",
+    "price": 25,
+    "stock": 10
+  },
+  {
+    "id": 5,
+    "title": "Call of Cthulhu",
+    "author": "H. P. Lovecraft",
+    "price": 20,
+    "stock": 13
+  },
+  {
+    "id": 6,
+    "title": "Foundation",
+    "author": "Isaac Asimov",
+    "price": 30,
+    "stock": 9
+  }
+]
