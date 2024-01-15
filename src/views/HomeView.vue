@@ -1,5 +1,9 @@
 <script setup>
-import {defineAsyncComponent, onMounted, reactive, ref, watch} from "vue";
+import {defineAsyncComponent, onBeforeMount, onMounted, reactive, ref} from "vue";
+
+import {useRoute} from "vue-router";
+const route = useRoute();
+
 const NotificationItem = defineAsyncComponent(() => import('@/components/NotificationItem.vue'));
 
 const urlMercure = ref(process.env.VUE_APP_MERCURE_PUBLIC_URL);
@@ -20,8 +24,8 @@ const getNotifications = () => {
 
 const getNotificationsForUser = () => {
   usersNotifications.length = 0;
-  const urlByUser = new URL(urlMercure.value);
-  urlByUser.searchParams.append('topic', `demo-user/${userName.value}`);
+  const urlByUser = new URL(`${urlMercure.value}/.well-known/mercure`);
+  urlByUser.searchParams.append('topic', `demo-user-${userName.value}`);
 
   const eventSource = new EventSource(urlByUser.toString(), { withCredentials: true});
   eventSource.onmessage = (e) => {
@@ -33,8 +37,14 @@ const getNotificationsForUser = () => {
 const deleteItem = (index) => notifications.splice(index, 1);
 const deleteUserItem = (index) => usersNotifications.splice(index, 1);
 
-onMounted(() => getNotifications());
-watch(userName, () => getNotificationsForUser());
+onBeforeMount(() => {
+  userName.value = route.query.user;
+})
+onMounted(() => {
+  getNotifications();
+  getNotificationsForUser()
+} );
+// watch(userName, () => getNotificationsForUser());
 
 
 </script>
@@ -54,16 +64,14 @@ watch(userName, () => getNotificationsForUser());
     </div>
 
     <div class="grid-child">
-      <div>
-        <h2>Notification for user {{ userName }}</h2>
-        <input type="text"
+        <h2>Notification only for "{{ userName }}"</h2>
+        <!-- input type="text"
           v-model="userName"
           variant="outlined"
           color="white"
           clearable
         />
-      </div>
-      <hr />
+      <hr / -->
       <NotificationItem
           v-for="(uNotification,i) in usersNotifications"
           :notification="uNotification"

@@ -39,7 +39,7 @@ a,
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
   align-content: center;
-  min-width: 1200px;
+  min-width: 800px;
 }
 
 .grid-child {

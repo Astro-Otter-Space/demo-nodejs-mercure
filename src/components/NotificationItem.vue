@@ -4,13 +4,14 @@
       <p>{{ notification.message }}</p>
     </div>
     <button class="Message-close js-messageClose" @click="clickRemove">
-      <v-icon icon="mdi-close"></v-icon>
+      <span>x</span>
     </button>
   </div>
 </template>
 
 <script setup>
 import {toRefs} from "vue";
+
 
 const props = defineProps({
   notification: {
@@ -29,7 +30,7 @@ const clickRemove = () => emit('click-remove')
   display: table;
   position: relative;
   margin: 1em auto 0;
-  width: 500px;
+  width: 350px;
   border-radius: 5px;
   background-color: #3E8ED0;
   color: #F3FDFB;
