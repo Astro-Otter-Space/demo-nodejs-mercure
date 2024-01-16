@@ -1,23 +1,18 @@
 <script setup>
-import { onMounted, reactive, ref} from "vue";
+import { onMounted, reactive} from "vue";
+import { BooksWs  } from '@/repositories/api/BooksWs'
+const booksRef = reactive([]);
 
-const urlMercure = ref(process.env.VUE_APP_MERCURE_PUBLIC_URL);
-const notifications = reactive([]);
-
-const getNotifications = () => {
-  const url = new URL(`${urlMercure.value}`);
-  url.searchParams.append('topic', 'https://localhost/books');
-
-  const eventSource = new EventSource(url.toString(), {withCredentials: true});
-  eventSource.onmessage = (e) => {
-    const response = JSON.parse(e.data);
-    notifications.push(response);
+const getBooks = async () => {
+  try {
+    booksRef.value = await BooksWs.getBooks();
+  } catch (e) {
+    console.log(e.message)
   }
 }
 
-onMounted(() => {
-  getNotifications();
-} );
+onMounted(() => getBooks())
+
 </script>
 
 <template>
@@ -26,6 +21,12 @@ onMounted(() => {
   <div class="grid-container">
     <div class="grid-child">
       <h2>List books</h2>
+
+      <div v-for="book in booksRef" v-bind:key="book">
+        <p>{{ book.uuid }}</p>
+        <p>{{ book.title }}</p>
+        <p>{{ book.author }}</p>
+      </div>
     </div>
   </div>
 </template>
