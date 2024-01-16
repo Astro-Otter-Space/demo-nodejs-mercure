@@ -1,7 +1,10 @@
 /**
  * HTTP libraries
  */
+import * as https from "https";
 import express, { Request, Response } from 'express';
+
+import * as fs from "fs";
 import {StatusCodes} from 'http-status-codes';
 import { join } from 'path';
 import {v4 as uuidv4} from 'uuid';
@@ -19,15 +22,15 @@ import {Book} from "./interface/book";
  * Repositories
  */
 import { getBooks } from './repositories/getBooks';
+import {getBook} from "./repositories/getBook";
+import {postNewBook} from "./repositories/postNewBook";
+import {deleteBook} from "./repositories/deleteBook";
+import {putBook} from "./repositories/putBook";
 
 /**
  * Services
  */
 import {fileDirName} from "./services/fileDirName";
-import {getBook} from "./repositories/getBook";
-import {postNewBook} from "./repositories/postNewBook";
-import {deleteBook} from "./repositories/deleteBook";
-import {putBook} from "./repositories/putBook";
 
 /**
  * Express
@@ -37,6 +40,8 @@ const port: number = process.env.PORT_API ? parseInt(process.env.PORT_API) : 300
 
 const { __dirname } = fileDirName(import.meta);
 const fileBooksData: string = join(__dirname, 'data', 'books.json');
+const keyPem: string = join(__dirname, 'data', 'cert.key');
+const certPem: string = join(__dirname, 'data', 'cert.crt');
 app.use(express.json());
 
 /**
@@ -161,8 +166,13 @@ app.delete('/books/:uuid', async (req: Request, res: Response): Promise<void> =>
   });
 })
 
-const server = app.listen(port, () => {
-  console.log(`Server API is running on http://localhost:${port}`);
+/**
+ * Create HTTPS server
+ */
+const options = {
+  key: fs.readFileSync(keyPem),
+  cert: fs.readFileSync(certPem)
+}
+https.createServer(options, app).listen(port, () => {
+  console.log(`Server API is running on https://127.0.0.1:${port}`);
 });
-
-server.timeout = 10000;
