@@ -7,7 +7,7 @@ const urlMercure = ref(process.env.VUE_APP_MERCURE_PUBLIC_URL);
 const notifications = reactive([]);
 
 const getNotifications = () => {
-  const url = new URL(`${urlMercure.value}/.well-known/mercure`);
+  const url = new URL(`${urlMercure.value}`);
   url.searchParams.append('topic', 'https://localhost/books');
 
   const eventSource = new EventSource(url.toString(), {withCredentials: true});
