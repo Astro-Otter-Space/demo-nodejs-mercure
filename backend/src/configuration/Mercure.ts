@@ -14,6 +14,6 @@ export const MercureConfig: Mercure = {
   method: 'POST',
   headers: {
     'Authorization': `Bearer ${JWT}`,
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
 };
