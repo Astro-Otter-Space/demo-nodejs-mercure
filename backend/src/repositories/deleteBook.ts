@@ -1,6 +1,5 @@
 import {promises as fsPromises} from "fs";
 import {notifications} from "../services/notifications";
-import {raw} from "express";
 
 /**
  * Delete Book
