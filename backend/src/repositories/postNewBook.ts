@@ -10,9 +10,14 @@ import { promises as fsPromises } from 'fs';
  */
 export const postNewBook = async (fileBooksData: string, newBook: Book): Promise<void> => {
   try {
+    // Read file
     const file = await fsPromises.readFile(fileBooksData, 'utf-8');
     const rawListBooks = JSON.parse(file);
+
+    // Add new entry
     rawListBooks.push(newBook);
+
+    // Overwrite file
     await fsPromises.writeFile(fileBooksData, JSON.stringify(rawListBooks, null, 2), 'utf-8')
 
     notifications(null);

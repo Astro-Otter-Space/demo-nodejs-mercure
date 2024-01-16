@@ -21,6 +21,7 @@ import { getBooks } from './repositories/getBooks';
 import {fileDirName} from "./services/fileDirName";
 import {getBook} from "./repositories/getBook";
 import {postNewBook} from "./repositories/postNewBook";
+import {deleteBook} from "./repositories/deleteBook";
 
 /**
  * Express
@@ -79,17 +80,12 @@ app.get('/books/:uuid', (req: Request, res: Response): void => {
 /**
  * Routes POST, add new book
  */
-app.post('/books', (req: Request, res: Response): void => {
+app.post('/books', async (req: Request, res: Response): Promise<void> => {
   try {
     const newBook = req.body;
     newBook.uuid = uuidv4();
 
-    postNewBook(fileBooksData, newBook).then(() =>
-      res
-      .status(StatusCodes.CREATED)
-      .end()
-    );
-
+    await postNewBook(fileBooksData, newBook);
   } catch (err: unknown) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -100,16 +96,42 @@ app.post('/books', (req: Request, res: Response): void => {
       );
   }
 
+  res
+    .status(StatusCodes.CREATED)
+    .end();
 });
 
 /**
  * PUT route
  */
 app.put('/books/:uuid', (req: Request, res: Response): void => {
+  const uuid: string = req.params.uuid;
+  // const book: Book = _.extend(uuid, req.body);
+  console.log(uuid, req.body)
   res
     .status(StatusCodes.OK)
     .end()
 });
+
+/**
+ * DELETE route
+ */
+app.delete('/books/:uuid', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const uuid: string = req.params.uuid;
+    await deleteBook(fileBooksData, uuid);
+
+  } catch (err: unknown) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+          message: (err as Error).message,
+          error: err
+        }
+      );
+  }
+  res.status(StatusCodes.NO_CONTENT).end();
+})
 
 const server = app.listen(port, () => {
   console.log(`Server API is running on http://localhost:${port}`);
