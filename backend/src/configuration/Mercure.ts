@@ -1,11 +1,15 @@
 import {Mercure} from "../interface/mercure";
 import * as process from "process";
+import dotenv from 'dotenv';
+dotenv.config();
 
-const JWT = process.env.JWT;
+
+const JWT: string = process.env.JWT;
+const PORT_MERCURE: number =  process.env.PORT_MERCURE ? parseInt(process.env.PORT_MERCURE) : 3000;
 
 export const MercureConfig: Mercure = {
   hostname: 'https://localhost',
-  port: 3000,
+  port: PORT_MERCURE,
   path: '/.well-known/mercure',
   method: 'POST',
   headers: {

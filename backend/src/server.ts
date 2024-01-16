@@ -5,6 +5,11 @@ import express, { Request, Response } from 'express';
 import {StatusCodes} from 'http-status-codes';
 import { join } from 'path';
 import {v4 as uuidv4} from 'uuid';
+
+import * as process from "process";
+import dotenv from 'dotenv';
+dotenv.config();
+
 /**
  * Types
  */
@@ -28,7 +33,8 @@ import {putBook} from "./repositories/putBook";
  * Express
  */
 const app = express();
-const port: number = 3001;
+const port: number = process.env.PORT_API ? parseInt(process.env.PORT_API) : 3002;
+
 const { __dirname } = fileDirName(import.meta);
 const fileBooksData: string = join(__dirname, 'data', 'books.json');
 app.use(express.json());
