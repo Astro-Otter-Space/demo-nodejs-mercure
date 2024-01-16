@@ -44,7 +44,7 @@
   {
     "title": "Germinal",
     "author": "Emile Zola",
-    "price": 19,
+    "price": 20,
     "stock": 5,
     "uuid": "1c9833fc-0d4f-42cd-9c4e-cb4a0c7599d5"
   },
@@ -53,6 +53,6 @@
     "author": "Guy de Maupassant",
     "price": 1,
     "stock": 6,
-    "uuid": "c909fba3-4ac9-4d2e-8805-b70c0a97713f"
+    "uuid": "e4571038-aebe-4d37-9fc1-058bd634f7ea"
   }
 ]

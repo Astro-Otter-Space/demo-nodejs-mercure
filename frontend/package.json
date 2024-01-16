@@ -10,7 +10,8 @@
   "dependencies": {
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
-    "vuetify": "^3.4.10"
+    "vuetify": "^3.4.10",
+    "vuetify-sonner": "^0.3.12"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",

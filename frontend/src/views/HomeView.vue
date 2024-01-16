@@ -1,7 +1,5 @@
 <script setup>
-import {defineAsyncComponent, onMounted, reactive, ref} from "vue";
-
-const NotificationItem = defineAsyncComponent(() => import('@/components/NotificationItem.vue'));
+import { onMounted, reactive, ref} from "vue";
 
 const urlMercure = ref(process.env.VUE_APP_MERCURE_PUBLIC_URL);
 const notifications = reactive([]);
@@ -17,8 +15,6 @@ const getNotifications = () => {
   }
 }
 
-const deleteItem = (index) => notifications.splice(index, 1);
-
 onMounted(() => {
   getNotifications();
 } );
@@ -29,13 +25,7 @@ onMounted(() => {
 
   <div class="grid-container">
     <div class="grid-child">
-      <h2>Global notifications</h2>
-      <NotificationItem
-          v-for="(notification,i) in notifications"
-          :notification="notification"
-          v-bind:key="notification"
-          @click-remove="deleteItem(i)"
-      ></NotificationItem>
+      <h2>List books</h2>
     </div>
   </div>
 </template>
