@@ -32,3 +32,5 @@ coverage
 
 *.tsbuildinfo
 .env
+backend/.env
+frontend/.env
