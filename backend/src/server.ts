@@ -38,6 +38,9 @@ app.get('/', (req: Request, res: Response): void => {
   res.sendStatus(StatusCodes.OK).send('API for Mercure POC is up.')
 });
 
+/**
+ * GET all books
+ */
 app.get('/books', (req: Request, res: Response): void => {
   try {
     const listBooks: Book[] = getBooks(fileBooksData);
@@ -55,6 +58,9 @@ app.get('/books', (req: Request, res: Response): void => {
   }
 });
 
+/**
+ * GET book by uuid
+ */
 app.get('/books/:uuid', (req: Request, res: Response): void => {
   try {
     const book = getBook(fileBooksData, req.params.uuid);
@@ -71,17 +77,19 @@ app.get('/books/:uuid', (req: Request, res: Response): void => {
 });
 
 /**
- * Routes POST/PUT
+ * Routes POST, add new book
  */
 app.post('/books', (req: Request, res: Response): void => {
   try {
     const newBook = req.body;
     newBook.uuid = uuidv4();
 
-    postNewBook(fileBooksData, newBook);
-    res
+    postNewBook(fileBooksData, newBook).then(() =>
+      res
       .status(StatusCodes.CREATED)
       .end()
+    );
+
   } catch (err: unknown) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -94,6 +102,9 @@ app.post('/books', (req: Request, res: Response): void => {
 
 });
 
+/**
+ * PUT route
+ */
 app.put('/books/:uuid', (req: Request, res: Response): void => {
   res
     .status(StatusCodes.OK)

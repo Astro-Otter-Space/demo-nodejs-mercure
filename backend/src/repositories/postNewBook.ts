@@ -2,22 +2,21 @@ import {Book} from "../interface/book";
 import {notifications} from "../services/notifications";
 import { promises as fsPromises } from 'fs';
 
-export const postNewBook = (fileBooksData: string, newBook: Book): void => {
-    console.log(newBook);
+/**
+ * Add new book in JSON and send notification to Mercure
+ *
+ * @param fileBooksData
+ * @param newBook
+ */
+export const postNewBook = async (fileBooksData: string, newBook: Book): Promise<void> => {
+  try {
+    const file = await fsPromises.readFile(fileBooksData, 'utf-8');
+    const rawListBooks = JSON.parse(file);
+    rawListBooks.push(newBook);
+    await fsPromises.writeFile(fileBooksData, JSON.stringify(rawListBooks, null, 2), 'utf-8')
 
-    fsPromises.readFile(fileBooksData, 'utf-8')
-      .then(data => {
-        let json = JSON.parse(data);
-        json.push(newBook);
-
-        fsPromises.writeFile(fileBooksData, JSON.stringify(json))
-          .then(() => notifications(null))
-          .catch(err => {
-            throw new Error('Cant add new book :' + err.message);
-          })
-      }
-    )
-    .catch(err => {
-        throw new Error('Cant read JSON file: ' + err.message);
-      })
+    notifications(null);
+  } catch (err: unknown) {
+    throw new Error('Error write new book');
+  }
 }

@@ -1,6 +1,12 @@
 import {Book} from '../interface/book'
 import * as fs from 'fs';
 
+/**
+ * Read all books and return list of Book
+ *
+ * @param fileBooksData
+ * @return Book[]
+ */
 export const getBooks = (fileBooksData: string): Book[] => {
   if (!fs.existsSync(fileBooksData)) {
     throw new Error('File books.json does not exist');

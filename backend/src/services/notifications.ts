@@ -2,6 +2,10 @@ import * as querystring from "querystring";
 import * as http from "http";
 import {MercureConfig} from "../configuration/Mercure";
 
+/**
+ * Send notification to Mercure
+ * @param uuid
+ */
 export const notifications = (uuid: string | null): void => {
 
   const postData = querystring.stringify({

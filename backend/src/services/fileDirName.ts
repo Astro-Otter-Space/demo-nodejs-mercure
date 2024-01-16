@@ -10,6 +10,10 @@ interface FileDirNameResult {
   __filename: string;
 }
 
+/**
+ *
+ * @param meta
+ */
 export const fileDirName = (meta: Meta): FileDirNameResult => {
   const __filename: string = fileURLToPath(meta.url);
   const __dirname: string = dirname(__filename);
