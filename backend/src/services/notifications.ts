@@ -5,17 +5,20 @@ import {MercureConfig} from "../configuration/Mercure";
 /**
  * Send notification to Mercure
  * @param uuid
+ * @param type
+ * @param message
  */
-export const notifications = (uuid: string | null): void => {
+export const notifications = (uuid: string | null, type: string, message: string): void => {
 
   const postData = querystring.stringify({
-    topic: 'https://localhost/books/' + uuid,
+    topic: (uuid !== null) ? 'https://localhost/books/' + uuid : 'https://localhost/books',
     data: JSON.stringify({
-      type: (null === uuid) ? 'create' : 'update',
-      message: (null === uuid) ? 'New book' : `Book ${uuid} have been updated`,
+      type: type,
+      message: message,
     })
   });
 
+  console.log(MercureConfig);
   const req = http.request(MercureConfig as http.RequestOptions, (res => console.log(`Headers: ${JSON.stringify(res.headers)}`)))
 
   req.on('error', (e) => {

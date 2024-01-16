@@ -22,6 +22,7 @@ import {fileDirName} from "./services/fileDirName";
 import {getBook} from "./repositories/getBook";
 import {postNewBook} from "./repositories/postNewBook";
 import {deleteBook} from "./repositories/deleteBook";
+import {putBook} from "./repositories/putBook";
 
 /**
  * Express
@@ -45,6 +46,7 @@ app.get('/', (req: Request, res: Response): void => {
 app.get('/books', (req: Request, res: Response): void => {
   try {
     const listBooks: Book[] = getBooks(fileBooksData);
+
     res
       .status(StatusCodes.OK)
       .json(listBooks);
@@ -86,6 +88,13 @@ app.post('/books', async (req: Request, res: Response): Promise<void> => {
     newBook.uuid = uuidv4();
 
     await postNewBook(fileBooksData, newBook);
+
+    res.status(StatusCodes.OK)
+      .json({
+        status: 'success',
+        data: [],
+        message: `Successfully adding resource`
+      });
   } catch (err: unknown) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -95,22 +104,31 @@ app.post('/books', async (req: Request, res: Response): Promise<void> => {
         }
       );
   }
-
-  res
-    .status(StatusCodes.CREATED)
-    .end();
 });
 
 /**
  * PUT route
  */
-app.put('/books/:uuid', (req: Request, res: Response): void => {
-  const uuid: string = req.params.uuid;
-  // const book: Book = _.extend(uuid, req.body);
-  console.log(uuid, req.body)
-  res
-    .status(StatusCodes.OK)
-    .end()
+app.put('/books/:uuid', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const uuid: string = req.params.uuid;
+    const updatedBook: Book = {...req.body, uuid: uuid};
+    await putBook(fileBooksData, updatedBook);
+
+    res.status(StatusCodes.OK).json({
+      status: 'success',
+      data: [],
+      message: `Successfully updated resource with id ${req.params.uuid}`
+    });
+  } catch (err: unknown) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+          message: (err as Error).message,
+          error: err
+        }
+      );
+  }
 });
 
 /**
@@ -130,7 +148,11 @@ app.delete('/books/:uuid', async (req: Request, res: Response): Promise<void> =>
         }
       );
   }
-  res.status(StatusCodes.NO_CONTENT).end();
+  res.status(StatusCodes.OK).json({
+    status: 'success',
+    data: [],
+    message: `Successfully deleted resource with id ${req.params.uuid}`
+  });
 })
 
 const server = app.listen(port, () => {

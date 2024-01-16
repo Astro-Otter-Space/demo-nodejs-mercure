@@ -58,8 +58,8 @@
   {
     "title": "Bel-ami",
     "author": "Guy de Maupassant",
-    "price": 15,
-    "stock": 5000000,
+    "price": 10,
+    "stock": 200,
     "uuid": "8d7085aa-e803-46c8-b501-c3d07a88c914"
   }
 ]
