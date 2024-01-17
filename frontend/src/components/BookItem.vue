@@ -38,9 +38,21 @@
     <v-btn
       size="small"
       icon="mdi-cart-plus"
-      color="blue"
+      color="yellow"
       class="mr-1 mt-1"
       :disabled="isDisable"
+      hidden="hidden"
+    >
+    </v-btn>
+
+    <v-btn
+      size="small"
+      icon="mdi-book-edit"
+      color="blue"
+      class="mr-1 mt-1"
+      @click="clickEditBook"
+      alt="Edit book"
+      aria-label="Edit book"
     >
     </v-btn>
 
@@ -68,7 +80,8 @@ const props = defineProps({
 
 const { book } = toRefs(props);
 const isDisable = computed(() => 0 === book.value.stock )
-const emit = defineEmits(['click-delete-book']);
+const emit = defineEmits(['click-edit-book' ,'click-delete-book']);
+const clickEditBook = () => emit('click-edit-book');
 const clickDeleteBook = () => emit('click-delete-book');
 </script>
 
