@@ -1,11 +1,15 @@
 <script setup>
 import {defineAsyncComponent, onMounted, reactive, ref} from "vue";
-import { BooksWs  } from '@/repositories/api/BooksWs'
+import {BooksWs} from '@/repositories/api/BooksWs'
 
+/**
+ * Variables
+ */
 const booksRef = reactive([]);
 const isModalOpen = ref(false);
 const titleModal = ref('');
 const formBook = ref({
+  uuid: null,
   title: '',
   author: '',
   img: '',
@@ -13,9 +17,11 @@ const formBook = ref({
   price: 0
 });
 
+/**
+ * Components
+ */
 const BookItem = defineAsyncComponent(() => import('@/components/BookItem.vue'))
 const Modal = defineAsyncComponent(() => import('@/components/Modal.vue'));
-
 
 /**
  * Methods
@@ -43,7 +49,9 @@ const deleteBooks = async (uuid) => {
 };
 
 const handleModalForm = (submitData) => {
-  formBook.value = submitData;
+  const uuid = submitData.uuid;
+  delete submitData.uuid
+  console.log(uuid, submitData);
 }
 
 /**
@@ -53,6 +61,7 @@ const openAddModal = () => {
   titleModal.value = 'Add new book';
   isModalOpen.value = true;
   formBook.value = {
+    uuid: null,
     title: '',
     author: '',
     img: '',
