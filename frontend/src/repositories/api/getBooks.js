@@ -1,12 +1,13 @@
 import axios from "@/services/axiosApi";
+import {endpoint} from "@/repositories/api/endpoint";
 import * as WS from "@/repositories/api/abstractWebservice";
 
 export const getBooks = async () => {
   try {
-    let config = WS.buildApiHeaders(null, null, null)
-    const endpoint = endpoint.books;
-    const response = await axios.get(endpoint, config);
-
+    let config = WS.buildApiHeaders(null, null, null);
+    console.log(endpoint.books, config);
+    const response = await axios.get(endpoint.books, config);
+    console.log(response);
     if (200 !== response.status) {
       const error = new Error(response.statusText);
       error.code = response.status;
@@ -15,6 +16,7 @@ export const getBooks = async () => {
 
     return response.data;
   } catch (err) {
+    console.log(err.message)
     const error = new Error(err.message);
     error.code = 500;
     throw error;

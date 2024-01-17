@@ -1,4 +1,5 @@
 import {apiConfig} from "@/configuration/api";
+
 export const buildApiHeaders = (customHeaders, queryParams, othersConfig) => {
   return {
     'headers': {
