@@ -5,9 +5,7 @@ import * as WS from "@/repositories/api/abstractWebservice";
 export const getBooks = async () => {
   try {
     let config = WS.buildApiHeaders(null, null, null);
-    console.log(endpoint.books, config);
     const response = await axios.get(endpoint.books, config);
-    console.log(response);
     if (200 !== response.status) {
       const error = new Error(response.statusText);
       error.code = response.status;

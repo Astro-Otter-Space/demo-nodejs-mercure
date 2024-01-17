@@ -1,5 +1,4 @@
 import './assets/main.css'
-import 'vuetify/dist/vuetify.min.css';
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -11,8 +10,7 @@ import router from './router'
 import axios from "@/services/axiosApi";
 
 // Vuetify
-import { createVuetify } from "vuetify";
-const vuetify = createVuetify()
+import vuetify from "@/plugins/vuetify";
 
 /**
  * App

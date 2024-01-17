@@ -54,13 +54,6 @@ const certPem: string = join(__dirname, 'data', 'localhost.pem');
 app.use(express.json());
 
 /**
- * Routes GET
- */
-app.get('/', (req: Request, res: Response): void => {
-  res.sendStatus(StatusCodes.OK).send('API for Mercure POC is up.')
-});
-
-/**
  * GET all books
  */
 app.get('/books', (req: Request, res: Response): void => {

@@ -6,5 +6,15 @@ module.exports = defineConfig({
       'localhost',
       '127.0.0.1',
     ]
-  }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        implementation: require('sass'),
+        sassOptions: {
+          indentedSyntax: false, // optional
+        },
+      }
+    }
+  },
 });

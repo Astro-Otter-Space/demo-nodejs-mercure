@@ -3,6 +3,7 @@
     "uuid": "ee0cf287-65ad-4c51-8e73-f5c9738763b8",
     "title": "Lord of the rings",
     "author": "J.R.R Tolkien",
+    "img": "https://m.media-amazon.com/images/I/91Yr0n5lNWL._AC_UF894,1000_QL80_.jpg",
     "price": 15,
     "stock": 17
   },
@@ -10,6 +11,7 @@
     "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",
     "title": "Harry Potter",
     "author": "J. K. Rowling",
+    "img": "https://m.media-amazon.com/images/I/81Vuk+qsXRL._AC_UF1000,1000_QL80_.jpg",
     "price": 15,
     "stock": 23
   },
@@ -17,6 +19,7 @@
     "uuid": "c377559f-a971-4183-8b5b-0d93608d3d5a",
     "title": "A song of ice and fire",
     "author": "G.R.R Martin",
+    "img": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dc/A_Song_of_Ice_and_Fire_book_collection_box_set_cover.jpg/220px-A_Song_of_Ice_and_Fire_book_collection_box_set_cover.jpg",
     "price": 14,
     "stock": 18
   },
@@ -24,6 +27,7 @@
     "uuid": "4365441a-7f73-467c-8b64-15ede2f46cec",
     "title": "1984",
     "author": "Georges Orwell",
+    "img": "https://m.media-amazon.com/images/I/61NAx5pd6XL._AC_UF1000,1000_QL80_.jpg",
     "price": 25,
     "stock": 10
   },
@@ -31,6 +35,7 @@
     "uuid": "37effe96-fbf7-4671-9ccd-ebed2f848334",
     "title": "Call of Cthulhu",
     "author": "H. P. Lovecraft",
+    "img": "https://m.media-amazon.com/images/I/71tp-FB4JSL._AC_UF1000,1000_QL80_.jpg",
     "price": 20,
     "stock": 13
   },
@@ -38,19 +43,22 @@
     "uuid": "fb03bbd2-f884-4598-a52a-9248a4610e8e",
     "title": "Foundation",
     "author": "Isaac Asimov",
+    "img": "https://m.media-amazon.com/images/I/41sIWKtP-4L.jpg",
     "price": 30,
     "stock": 9
   },
   {
     "title": "Germinal",
     "author": "Emile Zola",
-    "price": 20,
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Germinal_first_edition_cover.jpg/640px-Germinal_first_edition_cover.jpg",
+    "price": 15,
     "stock": 5,
     "uuid": "1c9833fc-0d4f-42cd-9c4e-cb4a0c7599d5"
   },
   {
     "title": "Bel-ami",
     "author": "Guy de Maupassant",
+    "img": "https://m.media-amazon.com/images/I/51PHrnqQgWL.jpg",
     "price": 1,
     "stock": 6,
     "uuid": "e4571038-aebe-4d37-9fc1-058bd634f7ea"

@@ -18,12 +18,12 @@ export const getBooks = (fileBooksData: string): Book[] => {
   }
 
   return JSON.parse(rawBooks).map((item: Book) => {
-    const { uuid, title, author, price, stock} = item;
+    const { uuid, title, author, img, price, stock} = item;
 
     if (typeof uuid !== "string" && typeof title !== "string" && typeof author !== "string") {
       throw new Error("Invalid JSON format for field uuid, title or author");
     }
 
-    return { uuid, title, author, price, stock};
+    return { uuid, title, author, img, price, stock};
   })
 }
