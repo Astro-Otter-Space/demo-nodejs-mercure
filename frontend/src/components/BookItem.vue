@@ -14,6 +14,25 @@
       >
         {{ book.author }}
       </div>
+      <div>
+        <v-chip
+          size="x-small"
+          variant="outlined"
+          class="mr-1 mt-1"
+          color="orange"
+        >
+          {{ book.price }} &euro;
+        </v-chip>
+
+        <v-chip
+          size="x-small"
+          variant="outlined"
+          class="mr-1 mt-1"
+          color="purple"
+        >
+          Stock: {{ book.stock }}
+        </v-chip>
+      </div>
     </div>
 
     <v-btn
@@ -21,6 +40,7 @@
       icon="mdi-cart-plus"
       color="blue"
       class="mr-1 mt-1"
+      :disabled="isDisable"
     >
     </v-btn>
 
@@ -28,7 +48,7 @@
       size="small"
       icon="mdi-delete-outline"
       class="mr-1 mt-1"
-      @click-event="deleteBook"
+      @click="clickDeleteBook"
       color="red"
       alt="Delete book"
       aria-label="Delete book"
@@ -37,7 +57,7 @@
 </template>
 
 <script setup>
-import { toRefs } from "vue";
+import {computed, toRefs} from "vue";
 
 const props = defineProps({
   book: {
@@ -46,7 +66,10 @@ const props = defineProps({
   }
 });
 
-const { book } = toRefs(props)
+const { book } = toRefs(props);
+const isDisable = computed(() => 0 === book.value.stock )
+const emit = defineEmits(['click-delete-book']);
+const clickDeleteBook = () => emit('click-delete-book');
 </script>
 
 <style lang="scss">

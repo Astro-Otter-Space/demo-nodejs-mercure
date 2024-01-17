@@ -48,19 +48,19 @@
     "stock": 9
   },
   {
-    "title": "Germinal",
-    "author": "Emile Zola",
-    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Germinal_first_edition_cover.jpg/640px-Germinal_first_edition_cover.jpg",
-    "price": 15,
-    "stock": 5,
-    "uuid": "1c9833fc-0d4f-42cd-9c4e-cb4a0c7599d5"
+    "title": "The witcher",
+    "author": "Andrzej Sapkowski",
+    "img": "https://eleonorecotton.files.wordpress.com/2012/08/lepee_de_la_providence_2008.jpg?w=184&h=286",
+    "price": 10,
+    "stock": 10,
+    "uuid": "5aadf1ee-d136-44b0-a19d-0dbed503b8d8"
   },
   {
-    "title": "Bel-ami",
-    "author": "Guy de Maupassant",
-    "img": "https://m.media-amazon.com/images/I/51PHrnqQgWL.jpg",
-    "price": 1,
-    "stock": 6,
-    "uuid": "e4571038-aebe-4d37-9fc1-058bd634f7ea"
+    "title": "Germinal",
+    "author": "Emile Zola",
+    "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
+    "price": 10,
+    "stock": 1,
+    "uuid": "9973fabe-56d9-49d2-9aa0-1fef59e371c7"
   }
 ]

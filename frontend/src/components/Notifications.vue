@@ -1,5 +1,5 @@
 <template>
-  <VSonner expand position="bottom-left" :duration="10000" />
+  <VSonner expand position="bottom-left" :duration="5000" />
 </template>
 
 <script setup>

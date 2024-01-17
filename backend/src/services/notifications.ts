@@ -10,18 +10,18 @@ import {MercureConfig} from "../configuration/Mercure";
  */
 export const notifications = (uuid: string | null, type: string, message: string): void => {
   const postData = querystring.stringify({
-    topic: (uuid !== null) ? 'https://localhost/books/' + uuid : 'https://localhost/books',
+    topic: 'https://localhost/books', //(uuid !== null) ? 'https://localhost/books/' + uuid : 'https://localhost/books',
     data: JSON.stringify({
       type: type,
       message: message,
     })
   });
 
-  console.log(MercureConfig, postData);
+  console.log(postData);
 
-  const req = http.request(MercureConfig as http.RequestOptions, (res) => {
-    console.log(`Status: ${res.statusCode}`);
-    console.log(`Headers: ${JSON.stringify(res.headers)}`);
+  const req = http.request(MercureConfig as http.RequestOptions, (/*res*/) => {
+    // console.log(`Status: ${res.statusCode}`);
+    // console.log(`Headers: ${JSON.stringify(res.headers)}`);
   });
 
   req.on('error', (e) => {
