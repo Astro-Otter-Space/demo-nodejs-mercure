@@ -1,8 +1,9 @@
 /**
- * HTTP libraries
+ * HTTPS + libraries + ENV
  */
 import * as https from "https";
-import express, { Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
+import cors from 'cors';
 
 import * as fs from "fs";
 import {StatusCodes} from 'http-status-codes';
@@ -33,15 +34,23 @@ import {putBook} from "./repositories/putBook";
 import {fileDirName} from "./services/fileDirName";
 
 /**
- * Express
+ * Express, CORS
  */
 const app = express();
 const port: number = process.env.PORT_API ? parseInt(process.env.PORT_API) : 3002;
 
+app.use(cors());
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+  next();
+});
+
 const { __dirname } = fileDirName(import.meta);
 const fileBooksData: string = join(__dirname, 'data', 'books.json');
-const keyPem: string = join(__dirname, 'data', 'cert.key');
-const certPem: string = join(__dirname, 'data', 'cert.crt');
+const keyPem: string = join(__dirname, 'data', 'localhost-key.pem');
+const certPem: string = join(__dirname, 'data', 'localhost.pem');
 app.use(express.json());
 
 /**
@@ -173,6 +182,8 @@ const options = {
   key: fs.readFileSync(keyPem),
   cert: fs.readFileSync(certPem)
 }
-https.createServer(options, app).listen(port, () => {
-  console.log(`Server API is running on https://127.0.0.1:${port}`);
+https
+  .createServer(options, app)
+  .listen(port, () => {
+    console.log(`Server API is running on https://127.0.0.1:${port}`);
 });
