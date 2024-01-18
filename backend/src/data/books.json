@@ -4,7 +4,7 @@
     "title": "Lord of the rings",
     "author": "J.R.R Tolkien",
     "img": "https://m.media-amazon.com/images/I/91Yr0n5lNWL._AC_UF894,1000_QL80_.jpg",
-    "price": 15,
+    "price": "20",
     "stock": "20"
   },
   {
@@ -12,8 +12,8 @@
     "title": "Harry Potter",
     "author": "J. K. Rowling",
     "img": "https://m.media-amazon.com/images/I/81Vuk+qsXRL._AC_UF1000,1000_QL80_.jpg",
-    "price": 15,
-    "stock": 23
+    "price": "30",
+    "stock": "22"
   },
   {
     "uuid": "c377559f-a971-4183-8b5b-0d93608d3d5a",
@@ -28,7 +28,7 @@
     "title": "1984",
     "author": "Georges Orwell",
     "img": "https://m.media-amazon.com/images/I/61NAx5pd6XL._AC_UF1000,1000_QL80_.jpg",
-    "price": 25,
+    "price": "20",
     "stock": 10
   },
   {
@@ -45,7 +45,7 @@
     "author": "Isaac Asimov",
     "img": "https://m.media-amazon.com/images/I/41sIWKtP-4L.jpg",
     "price": 30,
-    "stock": 9
+    "stock": "10"
   },
   {
     "title": "The witcher",
@@ -54,13 +54,5 @@
     "price": 10,
     "stock": 10,
     "uuid": "5aadf1ee-d136-44b0-a19d-0dbed503b8d8"
-  },
-  {
-    "title": "Germinal",
-    "author": "Emile Zola",
-    "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
-    "stock": "10",
-    "price": "25",
-    "uuid": "4c8e83d5-2fae-4fed-97f1-7280b7e4578c"
   }
 ]

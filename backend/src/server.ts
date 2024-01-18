@@ -44,6 +44,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', '* ');
   res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+  res.header('Access-Control-Expose-Headers', 'Link')
+  res.header('Link', `<${process.env.MERCURE_PUBLIC_URL}>; rel="mercure"`)
   next();
 });
 
@@ -102,12 +104,14 @@ app.post('/books', async (req: Request, res: Response): Promise<void> => {
 
     await postNewBook(fileBooksData, newBook);
 
-    res.status(StatusCodes.CREATED)
+    res
+      .status(StatusCodes.CREATED)
       .json({
         status: 'success',
         data: [],
         message: `Successfully adding resource`
-      });
+      })
+    ;
   } catch (err: unknown) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
