@@ -8,15 +8,15 @@ import {BooksWs} from '@/repositories/api/BooksWs'
 const booksRef = reactive([]);
 const isModalOpen = ref(false);
 const titleModal = ref('');
-const formBook = ref({
+const isEditing = ref(false);
+const bookData = ref({
   uuid: null,
   title: '',
   author: '',
   img: '',
   stock: 0,
   price: 0
-});
-
+})
 /**
  * Components
  */
@@ -48,10 +48,19 @@ const deleteBooks = async (uuid) => {
   }
 };
 
-const handleModalForm = (submitData) => {
-  const uuid = submitData.uuid;
-  delete submitData.uuid
-  console.log(uuid, submitData);
+const handleModalForm = async (submittedData) => {
+  bookData.value = submittedData;
+  try {
+    if (true === isEditing.value) {
+      await BooksWs.putBook(bookData.value.uuid, JSON.stringify(bookData.value));
+    } else {
+      delete bookData.value.uuid;
+      await BooksWs.postNewBook(JSON.stringify(bookData.value));
+    }
+  } catch (e) {
+    console.log(e.message);
+  }
+  closeModal();
 }
 
 /**
@@ -60,7 +69,7 @@ const handleModalForm = (submitData) => {
 const openAddModal = () => {
   titleModal.value = 'Add new book';
   isModalOpen.value = true;
-  formBook.value = {
+  bookData.value = {
     uuid: null,
     title: '',
     author: '',
@@ -68,12 +77,14 @@ const openAddModal = () => {
     stock: 0,
     price: 0
   };
+  isEditing.value = false;
 }
 
 const openEditModal = (book) => {
-  titleModal.value = `Edit book '${book.title}'`;
+  titleModal.value = `Edit “${book.title}”`;
   isModalOpen.value = true;
-  formBook.value = book;
+  bookData.value = { ...book };
+  isEditing.value = true;
 }
 
 const closeModal = () => {
@@ -92,9 +103,8 @@ onMounted(() => getBooks())
 </script>
 
 <template>
-  <h1 class="text-align">MERCURE DEMO</h1>
   <div>
-    <h2>List books</h2>
+    <h1 class="text-h3">MERCURE DEMO - List books</h1>
     <v-spacer></v-spacer>
     <v-btn
       size="large"
@@ -116,7 +126,7 @@ onMounted(() => getBooks())
   <Modal
     :title="titleModal"
     :isOpen="isModalOpen"
-    :formData="formBook"
+    :bookData="bookData"
     @submit-form="handleModalForm"
     @close-modal="closeModal"
   ></Modal>

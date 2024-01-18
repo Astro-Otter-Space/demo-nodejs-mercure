@@ -79,7 +79,7 @@ const props = defineProps({
 });
 
 const { book } = toRefs(props);
-const isDisable = computed(() => 0 === book.value.stock )
+const isDisable = computed(() => true /*0 === book.value.stock*/ )
 const emit = defineEmits(['click-edit-book' ,'click-delete-book']);
 const clickEditBook = () => emit('click-edit-book');
 const clickDeleteBook = () => emit('click-delete-book');

@@ -1,5 +1,5 @@
 <script setup>
-import { toRefs } from "vue";
+import {reactive, toRefs, watch} from "vue";
 
 const props = defineProps({
   title: {
@@ -10,38 +10,42 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  formData: {
+  bookData: {
     type: Object,
     default: null
   }
 });
-
-const { title, isOpen, formData } = toRefs(props);
+const { title, isOpen, bookData } = toRefs(props);
+const stateBook = reactive(bookData);
+watch(() => bookData, (newBookData) => {
+  stateBook.value = newBookData;
+})
 
 const emit = defineEmits(['submit-form', 'close-modal']);
-const submitForm = () => emit('submit-form', {...formData});
+const handleSubmitForm = async () => emit('submit-form', stateBook.value /*{...stateBook}*/);
 
-const closeModal = () => emit('close-modal')
+const closeModal = () => emit('close-modal');
 </script>
 
 <template>
   <transition name="modal-fade">
     <div v-if="isOpen" class="modal-overlay">
-
-      <v-card class="ma-5" elevation="10" width="500">
-        <v-card-title class="text-center text-h5 ">
-          <span class="text-h5">{{ title }}</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-form class="form" @submit.prevent="submitForm">
+      <v-form class="form" @submit.prevent="handleSubmitForm">
+        <v-card class="ma-5" elevation="10" width="500">
+          <v-card-title class="text-center text-h5 ">
+            <span class="text-h5">{{ title }}</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
               <v-row>
                 <v-col cols="12">
                   <v-text-field
                     label="Title"
                     required
+                    rounded
+                    clearable
                     variant="outlined"
-                    v-model="formData.title"
+                    v-model="stateBook.title"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
@@ -49,16 +53,20 @@ const closeModal = () => emit('close-modal')
                     label="Author"
                     type="text"
                     required
+                    rounded
+                    clearable
                     variant="outlined"
-                    v-model="formData.author"
+                    v-model="stateBook.author"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12">
                   <v-text-field
                     label="Image path"
                     required
+                    rounded
+                    clearable
                     variant="outlined"
-                    v-model="formData.img"
+                    v-model="stateBook.img"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -69,8 +77,10 @@ const closeModal = () => emit('close-modal')
                     type="number"
                     min="0"
                     required
+                    rounded
+                    clearable
                     variant="outlined"
-                    v-model="formData.stock"
+                    v-model="stateBook.stock"
                   >
                   </v-text-field>
                 </v-col>
@@ -80,35 +90,36 @@ const closeModal = () => emit('close-modal')
                     type="number"
                     min="0"
                     required
+                    rounded
+                    clearable
                     variant="outlined"
                     prefix="€"
-                    v-model="formData.price"
+                    v-model="stateBook.price"
                   >
                   </v-text-field>
                 </v-col>
               </v-row>
-            </v-form>
-
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            @click="closeModal"
-          >
-            Close
-          </v-btn>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            type="submit"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="blue-darken-1"
+              variant="text"
+              @click="closeModal"
+            >
+              Close
+            </v-btn>
+            <v-btn
+              color="blue-darken-1"
+              variant="text"
+              type="submit"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
     </div>
   </transition>
 </template>
