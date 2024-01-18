@@ -2,11 +2,6 @@ import axios from '@/services/axiosApi';
 import { endpoint } from "@/repositories/api/endpoint";
 import * as WS from "@/repositories/api/abstractWebservice";
 
-/**
- *
- * @param dataBody
- * @returns {Promise<boolean>}
- */
 export const postNewBook = async (dataBody) => {
   try {
     const config = WS.buildApiHeaders(null, null)
@@ -17,7 +12,10 @@ export const postNewBook = async (dataBody) => {
       throw error;
     }
 
-    return true;
+    const mercureUrl = response.headers['link'].match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
+    return {
+      mercureUrl: mercureUrl
+    };
   } catch (err) {
     const error = new Error(err.statusText);
     error.code = err.status;

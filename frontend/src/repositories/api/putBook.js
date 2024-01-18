@@ -2,12 +2,6 @@ import axios from "@/services/axiosApi";
 import {endpoint} from "@/repositories/api/endpoint";
 import * as WS from "@/repositories/api/abstractWebservice";
 
-/**
- *
- * @param uuid
- * @param data
- * @returns {Promise<boolean>}
- */
 export const putBook = async (uuid, data) => {
   const endpointId = `${endpoint.books}/${uuid}`;
   const config = WS.buildApiHeaders(null, null, null);
@@ -20,7 +14,10 @@ export const putBook = async (uuid, data) => {
       throw error;
     }
 
-    return true;
+    const mercureUrl = response.headers['link'].match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
+    return {
+      mercureUrl: mercureUrl
+    };
   } catch (err) {
     const error = new Error(err.statusText);
     error.code = err.status;

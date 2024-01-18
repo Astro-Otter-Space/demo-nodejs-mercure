@@ -3,36 +3,8 @@
 </template>
 
 <script setup>
-import {onMounted} from "vue";
-import {mercureConfig} from "@/configuration/mercure";
-import { VSonner, toast } from 'vuetify-sonner'
+import { VSonner } from 'vuetify-sonner'
 import 'vuetify-sonner/style.css'
-
-/**
- *
- */
-const getNotifications = () => {
-  const hubUrl = new URL(mercureConfig.url);
-  hubUrl.searchParams.append('topic', `${mercureConfig.globalTopic}`);
-  const eventSource = new EventSource(hubUrl.toString(), { withCredentials: true });
-  eventSource.onmessage = (e) => {
-    const result = JSON.parse(e.data);
-
-    toast(result.message, {
-      cardProps: {
-        color: result.type
-      },
-      prependIcon: 'mdi-check-circle'
-    })
-  }
-
-  eventSource.onerror = () =>  {
-    console.log("An error occurred while attempting to connect to Mercure Hub.")
-    eventSource.close();
-  }
-}
-
-onMounted(() => getNotifications())
 </script>
 
 <style scoped lang="scss">

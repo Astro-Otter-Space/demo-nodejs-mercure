@@ -73,19 +73,6 @@ const closeModal = () => emit('close-modal');
               <v-row>
                 <v-col cols="6">
                   <v-text-field
-                    label="Stock"
-                    type="number"
-                    min="0"
-                    required
-                    rounded
-                    clearable
-                    variant="outlined"
-                    v-model="stateBook.stock"
-                  >
-                  </v-text-field>
-                </v-col>
-                <v-col cols="6">
-                  <v-text-field
                     label="Price"
                     type="number"
                     min="0"
@@ -95,6 +82,19 @@ const closeModal = () => emit('close-modal');
                     variant="outlined"
                     prefix="€"
                     v-model="stateBook.price"
+                  >
+                  </v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                    label="Stock"
+                    type="number"
+                    min="0"
+                    required
+                    rounded
+                    clearable
+                    variant="outlined"
+                    v-model="stateBook.stock"
                   >
                   </v-text-field>
                 </v-col>

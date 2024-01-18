@@ -24,7 +24,10 @@ export const deleteBook = async (uuid) => {
       throw error;
     }
 
-    return true;
+    const mercureUrl = response.headers['link'].match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
+    return {
+      mercureUrl: mercureUrl
+    };
   } catch (err) {
     const error = new Error(err.message);
     error.code = 500;

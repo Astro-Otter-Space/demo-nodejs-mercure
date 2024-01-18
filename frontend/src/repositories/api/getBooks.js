@@ -15,7 +15,12 @@ export const getBooks = async () => {
       error.code = response.status;
       throw error;
     }
-    return response.data;
+
+    const mercureUrl = response.headers['link'].match(/<([^>]+)>;\s+rel=(?:mercure|"[^"]*mercure[^"]*")/)[1];
+    return {
+      dataBooks: response.data,
+      mercureUrl: mercureUrl
+    };
   } catch (err) {
     const error = new Error(err.message);
     error.code = 500;

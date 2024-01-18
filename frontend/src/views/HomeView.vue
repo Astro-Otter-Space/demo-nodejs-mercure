@@ -1,7 +1,7 @@
 <script setup>
 import {defineAsyncComponent, onMounted, reactive, ref} from "vue";
 import {BooksWs} from '@/repositories/api/BooksWs'
-
+import {notification} from "@/services/notification";
 /**
  * Variables
  */
@@ -30,8 +30,9 @@ const Modal = defineAsyncComponent(() => import('@/components/Modal.vue'));
 const getBooks = async () => {
   booksRef.length = 0;
   try {
-    const wsBooks = await BooksWs.getBooks();
-    wsBooks.forEach(b => booksRef.push(b));
+    const { dataBooks, mercureUrl } = await BooksWs.getBooks();
+    dataBooks.forEach(b => booksRef.push(b));
+    notification(mercureUrl);
   } catch (e) {
     console.log(e.message)
   }
@@ -39,10 +40,7 @@ const getBooks = async () => {
 
 const deleteBooks = async (uuid) => {
   try {
-    const wsBooks = await BooksWs.deleteBook(uuid);
-    if (true === wsBooks) {
-      console.log('todo: refresh list')
-    }
+    await BooksWs.deleteBook(uuid);
   } catch (e) {
     console.log(e.message)
   }
@@ -60,6 +58,7 @@ const handleModalForm = async (submittedData) => {
   } catch (e) {
     console.log(e.message);
   }
+
   closeModal();
 }
 
