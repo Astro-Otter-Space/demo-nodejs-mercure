@@ -102,7 +102,7 @@ app.post('/books', async (req: Request, res: Response): Promise<void> => {
 
     await postNewBook(fileBooksData, newBook);
 
-    res.status(StatusCodes.OK)
+    res.status(StatusCodes.CREATED)
       .json({
         status: 'success',
         data: [],

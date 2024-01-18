@@ -5,7 +5,7 @@
     "author": "J.R.R Tolkien",
     "img": "https://m.media-amazon.com/images/I/91Yr0n5lNWL._AC_UF894,1000_QL80_.jpg",
     "price": 15,
-    "stock": 17
+    "stock": "20"
   },
   {
     "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",
@@ -59,8 +59,8 @@
     "title": "Germinal",
     "author": "Emile Zola",
     "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
-    "price": 10,
-    "stock": 1,
-    "uuid": "9973fabe-56d9-49d2-9aa0-1fef59e371c7"
+    "stock": "10",
+    "price": "25",
+    "uuid": "4c8e83d5-2fae-4fed-97f1-7280b7e4578c"
   }
 ]
