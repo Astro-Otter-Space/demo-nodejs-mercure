@@ -2,6 +2,7 @@
   "name": "front-poc-mercure",
   "version": "1.0.0",
   "private": true,
+  "author": "Stéphane MÉAUDRE",
   "scripts": {
     "dev": "vue-cli-service serve --port=8081 --https true",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",

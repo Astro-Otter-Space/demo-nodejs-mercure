@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "REST API for Mercure (POC)",
   "type": "module",
+  "author": "Stéphane MÉAUDRE",
   "scripts": {
     "dev": "nodemon",
     "lint": "eslint ./src --ext .ts",
@@ -10,7 +11,6 @@
     "build": "npm run clean && tsc --build tsconfig.json",
     "start": "node --loader ts-node/esm ./dist/server.js"
   },
-  "author": "smeaudre",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
