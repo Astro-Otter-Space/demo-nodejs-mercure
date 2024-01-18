@@ -2,6 +2,11 @@
 
 This POC is a demonstration how to use Mercure in Javascript. It contains as backend an API Rest in nodeJS, a frontend in Vue 3 and a docker container for Mercure.
 
+## Requirements
+- Node >= 18
+- npm >= 10
+- Docker & docker-compose
+
 ## Project setup
 
 ### Clone repository
@@ -36,7 +41,8 @@ You can add in `publish` a list of topics.
 
 In `verify signature` add the secret string. Copy and paste the generated JWT in `JWT` key.
 Variables are used both in docker-compose file and nodeJS server.
-If you want using an external instance Mercure, you can change values of `MERCURE_PUBLISH_URL` and `PORT_MERCURE`. You can also change `PORT_API` value.
+If you want using an external instance Mercure, you can change value of `MERCURE_PUBLIC_URL`, who's the subscribe mercure URL exposed to front and can be an URL like `https://mercure.exemple.com/.well-known/mercure`. 
+You need change `MERCURE_PUBLISH_URL`,  and `PORT_MERCURE` also; `MERCURE_PUBLISH_URL` is th URL used by server for publish data. You can also change `PORT_API` value.
 
 #### Frontend
 On `frontend/.env` don't change `VUE_APP_MERCURE_PUBLIC_URL` if you're using mercure docker container. Change-it if you're using an external mercure instance.
