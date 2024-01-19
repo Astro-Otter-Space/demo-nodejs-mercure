@@ -17,8 +17,6 @@ export const notifications = (uuid: string | null, type: string, message: string
     })
   });
 
-  console.log(postData);
-
   const req = http.request(MercureConfig as http.RequestOptions, (/*res*/) => {
     // console.log(`Status: ${res.statusCode}`);
     // console.log(`Headers: ${JSON.stringify(res.headers)}`);

@@ -103,7 +103,7 @@ onMounted(() => getBooks())
 
 <template>
   <div>
-    <h1 class="text-h3">MERCURE DEMO - List books</h1>
+    <h1 class="text-h3">MERCURE DEMO - Bookstore</h1>
     <v-spacer></v-spacer>
     <v-btn
       size="large"

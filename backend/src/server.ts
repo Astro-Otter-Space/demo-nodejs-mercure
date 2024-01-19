@@ -61,7 +61,6 @@ app.use(express.json());
 app.get('/books', (req: Request, res: Response): void => {
   try {
     const listBooks: Book[] = getBooks(fileBooksData);
-
     res
       .status(StatusCodes.OK)
       .json(listBooks);
@@ -101,14 +100,14 @@ app.post('/books', async (req: Request, res: Response): Promise<void> => {
   try {
     const newBook = req.body;
     newBook.uuid = uuidv4();
-
     await postNewBook(fileBooksData, newBook);
-
     res
       .status(StatusCodes.CREATED)
       .json({
         status: 'success',
-        data: [],
+        data: {
+          uuid: newBook.uuid
+        },
         message: `Successfully adding resource`
       })
     ;
@@ -134,7 +133,9 @@ app.put('/books/:uuid', async (req: Request, res: Response): Promise<void> => {
 
     res.status(StatusCodes.OK).json({
       status: 'success',
-      data: [],
+      data: {
+        uuid: uuid
+      },
       message: `Successfully updated resource with id ${req.params.uuid}`
     });
   } catch (err: unknown) {
