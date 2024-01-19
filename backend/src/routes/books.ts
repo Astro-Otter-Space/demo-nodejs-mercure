@@ -30,7 +30,57 @@ const { __dirname } = fileDirName(import.meta);
 const fileBooksData: string = join(__dirname, '..', 'data', 'books.json');
 
 /**
- * GET all books
+ * @openapi
+ * tags:
+ *   name: Books
+ *   description: The books managing API
+ * /books:
+ *   get:
+ *   post:
+ *     summary: Create a new book
+ *     tags: [Books]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Book'
+ *     response:
+ *       200:
+ *         description: The created book
+ * components:
+ *   schemas:
+ *     Book:
+ *       type: object
+ *       required:
+ *         - title
+ *         - author
+ *         - finished
+ *       properties:
+ *         uuid:
+ *           type: string
+ *           description: The auto-generated id of the book
+ *         title:
+ *           type: string
+ *           description: The title of your book
+ *         author:
+ *           type: string
+ *           description: The book author
+ *         img:
+ *           type: boolean
+ *           description: Whether you have finished reading the book
+ *         price:
+ *           type: integer
+ *           description: The date the book was added
+ *         price:
+ *           type: integer
+ *           description: The date the book was added
+ *       example:
+ *         id: d5fE_asz
+ *         title: The New Turing Omnibus
+ *         author: Alexander K. Dewdney
+ *         finished: false
+ *         createdAt: 2020-03-10T04:05:06.157Z
  */
 router.get('/', (req: Request, res: Response): void => {
   try {
