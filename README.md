@@ -1,7 +1,6 @@
 # Demo Mercure with Javascript
 [WORK IN PROGRESS]
-This POC is a demonstration how to use Mercure in Javascript. It contains as backend an API Rest in nodeJS, a frontend in Vue 3 and a docker container for Mercure.
-
+This POC showing how to use [Mercure](https://mercure.rocks/) in Javascript project. It contains a REST API in nodeJS for the backend part and a frontend in VueJS 3
 ## Requirements
 - Node >= 18
 - npm >= 10
