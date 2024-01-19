@@ -11,7 +11,7 @@ This POC is a demonstration how to use Mercure in Javascript. It contains as bac
 
 ### Clone repository
 ```bash
-git clone ssh://git@git.kaliop.net:7999/smeaudre/poc-mercure.git
+git clone git@github.com:HamHamFonFon/demo-nodejs-mercure.git
 ```
 
 ### Init environment variables
