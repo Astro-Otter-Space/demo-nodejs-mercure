@@ -96,6 +96,49 @@ Frontend :
 # Todo
 ```
 
+## Project use
+
+### API Routes
+- Get all books
+```bash
+GET /books
+```
+
+- Get book by uuid
+```bash
+GET /books/:uuid
+```
+
+- Adding new book
+```bash
+POST /books
+{
+  title: "<string>",
+  author: "<string>",
+  img: "<string>",
+  price: <integer>,
+  stock: <integer> 
+}
+```
+
+- Edit existing book
+```bash
+PUT /books/:uuid
+{
+  title: "<string>",
+  author: "<string>",
+  img: "<string>",
+  price: <integer>,
+  stock: <integer> 
+}
+```
+
+- Delete existing book
+```bash
+DELETE /books/:uuid
+```
+
+
 # Author
 Stéphane MÉAUDRE <smeaudre@kaliop.com>
 
