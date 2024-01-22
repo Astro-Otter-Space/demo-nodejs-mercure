@@ -1,11 +1,11 @@
 [
   {
     "uuid": "ee0cf287-65ad-4c51-8e73-f5c9738763b8",
-    "title": "Lord of the rings",
-    "author": "J.R.R Tolkien",
-    "img": "https://m.media-amazon.com/images/I/91Yr0n5lNWL._AC_UF894,1000_QL80_.jpg",
-    "price": "25",
-    "stock": "25"
+    "title": "Germinal",
+    "author": "Emile Zola",
+    "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
+    "price": 14,
+    "stock": 10
   },
   {
     "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",

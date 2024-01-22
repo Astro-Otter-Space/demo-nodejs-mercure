@@ -1,5 +1,5 @@
 import process from "process";
-import {Options} from "swagger-jsdoc";
+import swaggerJSDoc, {Options} from "swagger-jsdoc";
 
 const port: number = process.env.PORT_API ? parseInt(process.env.PORT_API) : 8080;
 
@@ -21,9 +21,11 @@ const swagerOptions: Options = {
       },
     ],
   },
-  apis: ['./src/routes/*.ts'],
+  apis: [
+    './src/routes/*.ts'
+  ],
   output: './swagger.json'
 };
 
-
-export default swagerOptions;
+const swaggerDescription = swaggerJSDoc(swagerOptions);
+export default swaggerDescription;
