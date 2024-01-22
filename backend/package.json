@@ -9,6 +9,7 @@
     "lint": "eslint ./src --ext .ts",
     "clean": "tsc --build --clean",
     "build": "npm run clean && tsc --build tsconfig.json",
+    "generate-swagger": "npx swagger-jsdoc ./swagger.json -d src/swaggerOptions.ts",
     "start": "node --loader ts-node/esm ./dist/server.js"
   },
   "license": "ISC",
