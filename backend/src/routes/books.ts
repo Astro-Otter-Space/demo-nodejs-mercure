@@ -6,7 +6,19 @@
  * /books:
  *   get:
  *     summary: Get all books
+ *     description: Retrieve list of all books
  *     tags: [Books]
+ *     responses:
+ *       200:
+ *         description: List of all books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Books'
+ *       500:
+ *          description: Internal server error
  *   post:
  *     summary: Create a new book
  *     tags: [Books]
@@ -15,28 +27,66 @@
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Book'
- *     response:
- *       200:
+ *             $ref: '#/components/schemas/BookBody'
+ *     responses:
+ *       201:
  *         description: The created book
  * /books/{uuid}:
  *   get:
  *     summary: Get book by uuid
  *     tags: [Books]
+ *     parameters:
+ *       - name: uuid
+ *         in: path
+ *         description: Unique UUID of book
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: The book
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               item: '#/components/schemas/Books'
+ *       404:
+ *         description: Book not found
+ *       500:
+ *         description: Internal server error
  *   put:
  *     summary: Update book by uuid
  *     tags: [Books]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/BookBody'
+ *     parameters:
+ *       - name: uuid
+ *         in: path
+ *         description: Unique UUID of book
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Success
  *   delete:
  *     summary: Delete book by uuid
  *     tags: [Books]
+ *     parameters:
+ *       - name: uuid
+ *         in: path
+ *         description: Unique UUID of book
+ *         required: true
  * components:
  *   schemas:
  *     Books:
  *       type: object
  *       required:
+ *         - uuid
  *         - title
  *         - author
- *         - finished
+ *         - img
+ *         - price
+ *         - stock
  *       properties:
  *         uuid:
  *           type: string
@@ -52,16 +102,47 @@
  *           description: Whether you have finished reading the book
  *         price:
  *           type: integer
- *           description: The date the book was added
- *         price:
+ *           description: Price of book
+ *         stock:
  *           type: integer
- *           description: The date the book was added
+ *           description: Stock of books
  *       example:
- *         id: d5fE_asz
+ *         uuid: ee0cf287-65ad-4c51-8e73-f5c9738763b8
  *         title: The New Turing Omnibus
  *         author: Alexander K. Dewdney
- *         finished: false
- *         createdAt: 2020-03-10T04:05:06.157Z
+ *         img: http://www.exemple.com/path-to-cover.jpg
+ *         price: 25
+ *         stock: 20
+ *     BookBody:
+ *       type: object
+ *       required:
+ *         - title
+ *         - author
+ *         - img
+ *         - price
+ *         - stock
+ *       properties:
+ *         title:
+ *           type: string
+ *           description: The title of your book
+ *         author:
+ *           type: string
+ *           description: The book author
+ *         img:
+ *           type: boolean
+ *           description: Whether you have finished reading the book
+ *         price:
+ *           type: integer
+ *           description: Price of book
+ *         stock:
+ *           type: integer
+ *           description: Stock of books
+ *       example:
+ *         title: The New Turing Omnibus
+ *         author: Alexander K. Dewdney
+ *         img: http://www.exemple.com/path-to-cover.jpg
+ *         price: 25
+ *         stock: 20
  */
 
 /*
