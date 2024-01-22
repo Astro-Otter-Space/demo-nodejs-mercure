@@ -6,7 +6,8 @@ import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 
 import swaggerUi from 'swagger-ui-express';
-import swaggerJsDoc from 'swagger-jsdoc';
+// import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerOptions from "./swaggerOptions";
 
 import * as fs from "fs";
 import { join } from 'path';
@@ -36,35 +37,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next();
 });
 
-
-
 const { __dirname } = fileDirName(import.meta);
 const keyPem: string = join(__dirname, 'data', 'localhost-key.pem');
 const certPem: string = join(__dirname, 'data', 'localhost.pem');
 app.use(express.json());
 
-/**
- * Swagger
- */
-const swagerOptions = {
-  definition: {
-    openapi: '3.0.0',
-    info: {
-      title: 'API REST - Mercure',
-      version: '1.0.0',
-      description: 'A sample API for learning Swagger',
-    },
-    servers: [
-      {
-        url: `http://localhost:${port}`,
-      },
-    ],
-  },
-  apis: ['./routes/*.ts'],
-};
 
-const swaggerDocs = swaggerJsDoc(swagerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
 /**
  * HOME

@@ -1,41 +1,12 @@
 /**
- * Router
- */
-import { Router, Request, Response } from 'express';
-const router: Router = Router(); //express.Router();
-
-import {StatusCodes} from "http-status-codes";
-import {join} from "path";
-import {v4 as uuidv4} from 'uuid';
-
-/**
- * Repositories
- */
-import {Book} from "../interface/book";
-import {getBooks} from "../repositories/getBooks";
-import {getBook} from "../repositories/getBook";
-
-/**
- * Services
- */
-import {fileDirName} from "../services/fileDirName";
-import {postNewBook} from "../repositories/postNewBook";
-import {putBook} from "../repositories/putBook";
-import {deleteBook} from "../repositories/deleteBook";
-
-/**
- * @todo: improve this
- */
-const { __dirname } = fileDirName(import.meta);
-const fileBooksData: string = join(__dirname, '..', 'data', 'books.json');
-
-/**
  * @openapi
  * tags:
  *   name: Books
  *   description: The books managing API
  * /books:
  *   get:
+ *     summary: Get all books
+ *     tags: [Books]
  *   post:
  *     summary: Create a new book
  *     tags: [Books]
@@ -48,9 +19,19 @@ const fileBooksData: string = join(__dirname, '..', 'data', 'books.json');
  *     response:
  *       200:
  *         description: The created book
+ * /books/{uuid}:
+ *   get:
+ *     summary: Get book by uuid
+ *     tags: [Books]
+ *   put:
+ *     summary: Update book by uuid
+ *     tags: [Books]
+ *   delete:
+ *     summary: Delete book by uuid
+ *     tags: [Books]
  * components:
  *   schemas:
- *     Book:
+ *     Books:
  *       type: object
  *       required:
  *         - title
@@ -82,6 +63,38 @@ const fileBooksData: string = join(__dirname, '..', 'data', 'books.json');
  *         finished: false
  *         createdAt: 2020-03-10T04:05:06.157Z
  */
+
+/*
+ * Router
+ */
+import { Router, Request, Response } from 'express';
+const router: Router = Router(); //express.Router();
+
+import {StatusCodes} from "http-status-codes";
+import {join} from "path";
+import {v4 as uuidv4} from 'uuid';
+
+/*
+ * Repositories
+ */
+import {Book} from "../interface/book";
+import {getBooks} from "../repositories/getBooks";
+import {getBook} from "../repositories/getBook";
+
+/*
+ * Services
+ */
+import {fileDirName} from "../services/fileDirName";
+import {postNewBook} from "../repositories/postNewBook";
+import {putBook} from "../repositories/putBook";
+import {deleteBook} from "../repositories/deleteBook";
+
+/*
+ * TODO: improve this
+ */
+const { __dirname } = fileDirName(import.meta);
+const fileBooksData: string = join(__dirname, '..', 'data', 'books.json');
+
 router.get('/', (req: Request, res: Response): void => {
   try {
     console.log(fileBooksData);
@@ -100,9 +113,6 @@ router.get('/', (req: Request, res: Response): void => {
   }
 });
 
-/**
- * GET book by uuid
- */
 router.get('/:uuid', (req: Request, res: Response): void => {
   try {
     const book: Book = getBook(fileBooksData, req.params.uuid);
@@ -118,9 +128,6 @@ router.get('/:uuid', (req: Request, res: Response): void => {
   }
 });
 
-/**
- * Routes POST, add new book
- */
 router.post('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const newBook = req.body;
