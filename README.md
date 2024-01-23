@@ -98,6 +98,8 @@ Frontend :
 ## Project use
 
 ### API Routes
+Check swagger at `https://<hoast-api>:<port>/api-docs/` (default https://localhost:8080/api-docs/)
+
 - Get all books
 ```bash
 GET /books
