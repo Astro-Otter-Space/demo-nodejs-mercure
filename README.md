@@ -25,6 +25,23 @@ cd ../frontend
 copy .env.dist .env
 ```
 
+### SSL certificate
+You need generate SSL keys. Run command below :
+```bash
+# Go to backend directory
+cd backend/
+
+# Generate keys
+openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+   
+# Move keys
+mv localhost* src/data/
+```
+More information [https://letsencrypt.org/docs/certificates-for-localhost/](here).
+
 #### Backend
 On `backend/.env` change `MERCURE_PUBLISHER_JWT_KEY` and `MERCURE_PUBLISHER_JWT_KEY` with a secret string.
 Then you need to create a JWT with the secret string. Go to [jwt.io](https://jwt.io/) to create new token.
@@ -97,8 +114,11 @@ Frontend :
 
 ## Project use
 
+### Front
+Open your web-browser and go to `https://localhost:8081/` (or other if you have changed parameters)
+
 ### API Routes
-Check swagger at `https://<hoast-api>:<port>/api-docs/` (default https://localhost:8080/api-docs/)
+Check swagger at `https://<host-api>:<port>/api-docs/` (default https://localhost:8080/api-docs/)
 
 - Get all books
 ```bash

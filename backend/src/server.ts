@@ -38,12 +38,13 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 const { __dirname } = fileDirName(import.meta);
-const keyPem: string = join(__dirname, 'data', 'localhost-key.pem');
-const certPem: string = join(__dirname, 'data', 'localhost.pem');
+// const keyPem: string = join(__dirname, 'data', 'localhost-key.pem');
+// const certPem: string = join(__dirname, 'data', 'localhost.pem');
+const keyPem: string = join(__dirname, 'data', 'localhost.key');
+const certPem: string = join(__dirname, 'data', 'localhost.crt');
 app.use(express.json());
 
 
-// const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
 /**

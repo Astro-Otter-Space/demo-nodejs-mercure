@@ -12,7 +12,7 @@ services:
       MERCURE_PUBLISHER_JWT_KEY: 'poc-mercure' #${MERCURE_PUBLISHER_JWT_KEY}
       MERCURE_SUBSCRIBER_JWT_KEY: 'poc-mercure' #${MERCURE_SUBSCRIBER_JWT_KEY}
       MERCURE_EXTRA_DIRECTIVES: |
-        cors_origins https://127.0.0.1:8081 https://localhost:8081
+        cors_origins https://127.0.0.1:8081 https://localhost:8081 https://mercure.local:8081
         anonymous
     # Uncomment the following line to enable the development mode
     #command: /usr/bin/caddy run --config /etc/caddy/Caddyfile.dev

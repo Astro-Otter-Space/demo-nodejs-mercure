@@ -169,6 +169,7 @@ import {fileDirName} from "../services/fileDirName";
 import {postNewBook} from "../repositories/postNewBook";
 import {putBook} from "../repositories/putBook";
 import {deleteBook} from "../repositories/deleteBook";
+import process from "process";
 
 /*
  * TODO: improve this
@@ -178,7 +179,6 @@ const fileBooksData: string = join(__dirname, '..', 'data', 'books.json');
 
 router.get('/', (req: Request, res: Response): void => {
   try {
-    console.log(fileBooksData);
     const listBooks: Book[] = getBooks(fileBooksData);
     res
       .status(StatusCodes.OK)
@@ -241,7 +241,9 @@ router.put('/:uuid', async (req: Request, res: Response): Promise<void> => {
     const updatedBook: Book = {...req.body, uuid: uuid};
     await putBook(fileBooksData, updatedBook);
 
-    res.status(StatusCodes.OK).json({
+    res
+      .status(StatusCodes.OK)
+      .json({
       status: 'success',
       data: {
         uuid: uuid
