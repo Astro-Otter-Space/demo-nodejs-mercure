@@ -2,6 +2,7 @@
 import {defineAsyncComponent, onMounted, reactive, ref} from "vue";
 import {BooksWs} from '@/repositories/api/BooksWs'
 import {notification} from "@/services/notification";
+import {toast} from "vuetify-sonner";
 /**
  * Variables
  */
@@ -31,8 +32,29 @@ const getBooks = async () => {
   booksRef.length = 0;
   try {
     const { dataBooks, mercureUrl } = await BooksWs.getBooks();
-    dataBooks.forEach(b => booksRef.push(b));
-    notification(mercureUrl);
+    const eventSource = notification(mercureUrl, null);
+    dataBooks.forEach(b => {
+      const eventSourceBook = notification(mercureUrl, b.uuid);
+      eventSourceBook.onmessage = () => {
+        console.log('Detect change for ' + b.title)
+      }
+      booksRef.push(b)
+    });
+
+    eventSource.onmessage = (e) => {
+      const result = JSON.parse(e.data);
+      toast(result.message, {
+        cardProps: {
+          color: result.type
+        },
+        prependIcon: 'mdi-check-circle'
+      });
+    };
+
+    eventSource.onerror = () =>  {
+      console.log("An error occurred while attempting to connect to Mercure Hub.")
+      eventSource.close();
+    }
   } catch (e) {
     console.log(e.message)
   }
