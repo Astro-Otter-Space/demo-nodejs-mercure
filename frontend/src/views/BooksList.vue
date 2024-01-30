@@ -34,11 +34,16 @@ const getBooks = async () => {
     const { dataBooks, mercureUrl } = await BooksWs.getBooks();
     const eventSource = notification(mercureUrl, null);
     dataBooks.forEach(b => {
+      const indexBook = dataBooks.findIndex(item => item.uuid === b.uuid);
+      booksRef.push(b);
+
       const eventSourceBook = notification(mercureUrl, b.uuid);
-      eventSourceBook.onmessage = () => {
-        console.log('Detect change for ' + b.title)
+      eventSourceBook.onmessage = (e) => {
+        const result = JSON.parse(e.data);
+        if (-1 !== indexBook) {
+          booksRef[indexBook] = JSON.parse(result.message);
+        }
       }
-      booksRef.push(b)
     });
 
     eventSource.onmessage = (e) => {
