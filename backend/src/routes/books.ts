@@ -243,12 +243,12 @@ router.put('/:uuid', async (req: Request, res: Response): Promise<void> => {
     res
       .status(StatusCodes.OK)
       .json({
-      status: 'success',
-      data: {
-        uuid: uuid
-      },
-      message: `Successfully updated resource with id ${req.params.uuid}`
-    });
+        status: 'success',
+        data: {
+          uuid: uuid
+        },
+        message: `Successfully updated resource with id ${req.params.uuid}`
+      });
   } catch (err: unknown) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -265,6 +265,11 @@ router.delete('/:uuid', async (req: Request, res: Response): Promise<void> => {
     const uuid: string = req.params.uuid;
     await deleteBook(fileBooksData, uuid);
 
+    res.status(StatusCodes.OK).json({
+      status: 'success',
+      data: [],
+      message: `Successfully deleted resource with id ${req.params.uuid}`
+    });
   } catch (err: unknown) {
     res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
@@ -274,11 +279,7 @@ router.delete('/:uuid', async (req: Request, res: Response): Promise<void> => {
         }
       );
   }
-  res.status(StatusCodes.OK).json({
-    status: 'success',
-    data: [],
-    message: `Successfully deleted resource with id ${req.params.uuid}`
-  });
+
 });
 
 export default router;

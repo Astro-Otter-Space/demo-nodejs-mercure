@@ -38,12 +38,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 const { __dirname } = fileDirName(import.meta);
-// const keyPem: string = join(__dirname, 'data', 'localhost-key.pem');
-// const certPem: string = join(__dirname, 'data', 'localhost.pem');
-const keyPem: string = join(__dirname, 'data', 'localhost.key');
-const certPem: string = join(__dirname, 'data', 'localhost.crt');
-app.use(express.json());
+const privateKey: string = join(__dirname, 'cert', 'localhost.key');
+const certificate: string = join(__dirname, 'cert', 'localhost.crt');
+// const ca: string =  join(__dirname, 'data', 'localhost.csr');
 
+app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
@@ -63,8 +62,9 @@ app.use('/books', books);
  * Create HTTPS server
  */
 const options = {
-  key: fs.readFileSync(keyPem),
-  cert: fs.readFileSync(certPem)
+  key: fs.readFileSync(privateKey),
+  cert: fs.readFileSync(certificate),
+  // ca: fs.readFileSync(ca)
 }
 https
   .createServer(options, app)

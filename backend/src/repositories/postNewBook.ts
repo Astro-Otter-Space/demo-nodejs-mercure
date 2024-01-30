@@ -20,7 +20,7 @@ export const postNewBook = async (fileBooksData: string, newBook: Book): Promise
     // Overwrite file
     await fsPromises.writeFile(fileBooksData, JSON.stringify(rawListBooks, null, 2), 'utf-8')
 
-    notifications(null, 'success', `New book "${newBook.title}" have been added.`);
+    notifications('add', 'success', `New book "${newBook.title}" have been added.`, newBook);
   } catch (err: unknown) {
     throw new Error('Error write new book');
   }

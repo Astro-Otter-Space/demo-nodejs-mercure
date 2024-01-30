@@ -31,15 +31,15 @@ You need generate SSL keys. Run command below :
 # Go to backend directory
 cd backend/
 
-# Generate keys
-openssl req -x509 -out localhost.crt -keyout localhost.key \
-  -newkey rsa:2048 -nodes -sha256 \
-  -subj '/CN=localhost' -extensions EXT -config <( \
-   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+# Generate keys   
+openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:secp384r1 -days 3650 \
+  -nodes -keyout localhost.key -out localhost.crt -subj "/CN=localhost" \
+  -addext "subjectAltName=DNS:localhost,DNS:*.localhost,IP:127.0.0.1"   
    
 # Move keys
-mv localhost* src/data/
+mv localhost* src/cert/
 ```
+Certificates will have 3650 days
 More information [https://letsencrypt.org/docs/certificates-for-localhost/](here).
 
 #### Backend
@@ -91,7 +91,7 @@ First run API :
 cd backend/
 npm run dev # or node --loader ts-node/esm src/server.ts
 ```
-Then docker mercure isntance
+Then docker mercure instance
 ```bash
 docker-compose up # yo can add `-d` attribute in command
 ```
@@ -100,7 +100,6 @@ Then run front app
 cd ../frontend
 npm run dev
 ```
-
 ### Compilation
 Backend :
 ```bash
@@ -115,7 +114,7 @@ Frontend :
 ## Project use
 
 ### Front
-Open your web-browser and go to `https://localhost:8081/` (or other if you have changed parameters)
+Open your web-browser, go first to `https://localhost:8080/`. If you see `Hello Mercure API` go to `https://localhost:8081/` (or other if you have changed parameters)
 
 ### API Routes
 Check swagger at `https://<host-api>:<port>/api-docs/` (default https://localhost:8080/api-docs/)

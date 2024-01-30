@@ -12,8 +12,7 @@ export const putBook = async (fileBooksData: string, updatedBook: Book): Promise
       rawListBooks[indexBook] = {...rawListBooks[indexBook], ...updatedBook};
       await fsPromises.writeFile(fileBooksData, JSON.stringify(rawListBooks, null, 2), 'utf-8');
 
-      notifications(null, 'info', `“${updatedBook.title}” by ${updatedBook.author} have been updated.`);
-      notifications(updatedBook.uuid, 'info', JSON.stringify(updatedBook));
+      notifications(`edit/${updatedBook.uuid}`, 'info', `“${updatedBook.title}” by ${updatedBook.author} have been updated.`, updatedBook);
     }
   } catch (err: unknown) {
     throw new Error(`Error cant update book "${updatedBook.uuid}"`);

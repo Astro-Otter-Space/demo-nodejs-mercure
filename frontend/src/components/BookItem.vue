@@ -39,9 +39,8 @@
       size="small"
       icon="mdi-cart-plus"
       color="yellow"
-      class="mr-1 mt-1"
+      class="mr-1 mt-1 d-none"
       :disabled="isDisable"
-      hidden="hidden"
     >
     </v-btn>
 

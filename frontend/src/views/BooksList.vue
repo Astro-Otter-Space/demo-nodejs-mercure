@@ -32,22 +32,51 @@ const getBooks = async () => {
   booksRef.length = 0;
   try {
     const { dataBooks, mercureUrl } = await BooksWs.getBooks();
-    const eventSource = notification(mercureUrl, null);
     dataBooks.forEach(b => {
       const indexBook = dataBooks.findIndex(item => item.uuid === b.uuid);
       booksRef.push(b);
 
-      const eventSourceBook = notification(mercureUrl, b.uuid);
+      const eventSourceBook = notification(mercureUrl, `edit/${b.uuid}`);
       eventSourceBook.onmessage = (e) => {
         const result = JSON.parse(e.data);
         if (-1 !== indexBook) {
-          booksRef[indexBook] = JSON.parse(result.message);
+          toast(result.message, {
+            cardProps: {
+              color: result.type
+            },
+            prependIcon: 'mdi-check-circle'
+          });
+          booksRef[indexBook] = result.book;
         }
       }
     });
 
-    eventSource.onmessage = (e) => {
+    /**
+     * Event source Add element
+     * @type {EventSource}
+     */
+    const addEventSource = notification(mercureUrl, 'add');
+    addEventSource.onmessage = (e) => {
       const result = JSON.parse(e.data);
+      console.log('addEventSource', result);
+      toast(result.message, {
+        cardProps: {
+          color: result.type
+        },
+        prependIcon: 'mdi-check-circle'
+      });
+      booksRef.push(result.book)
+    };
+
+    addEventSource.onerror = () =>  {
+      console.log("An error occurred while attempting to connect to Mercure Hub.")
+      addEventSource.close();
+    }
+
+    const rmEventSource = notification(mercureUrl, 'delete');
+    rmEventSource.onmessage = (e) => {
+      const result = JSON.parse(e.data);
+      console.log('rmEventSource', result);
       toast(result.message, {
         cardProps: {
           color: result.type
@@ -56,10 +85,11 @@ const getBooks = async () => {
       });
     };
 
-    eventSource.onerror = () =>  {
+    rmEventSource.onerror = () =>  {
       console.log("An error occurred while attempting to connect to Mercure Hub.")
-      eventSource.close();
+      addEventSource.close();
     }
+
   } catch (e) {
     console.log(e.message)
   }
@@ -120,7 +150,7 @@ const closeModal = () => {
 /**
  * On MOUNT
  */
-onMounted(() => getBooks())
+onMounted(() => getBooks());
 
 /**
  * EMIT

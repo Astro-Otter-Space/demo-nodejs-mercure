@@ -1,19 +1,19 @@
 [
   {
     "uuid": "ee0cf287-65ad-4c51-8e73-f5c9738763b8",
-    "title": "Germinal",
-    "author": "Emile Zola",
-    "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
-    "price": 14,
-    "stock": 10
+    "title": "Lord of the rings",
+    "author": "J.R.R Tolkien",
+    "img": "https://s26162.pcdn.co/wp-content/uploads/2017/05/the-lord-of-the-rings-book-cover.jpg",
+    "price": "150",
+    "stock": "100"
   },
   {
     "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",
     "title": "Harry Potter",
     "author": "J. K. Rowling",
     "img": "https://m.media-amazon.com/images/I/81Vuk+qsXRL._AC_UF1000,1000_QL80_.jpg",
-    "price": "30",
-    "stock": "22"
+    "price": "60",
+    "stock": "50"
   },
   {
     "uuid": "c377559f-a971-4183-8b5b-0d93608d3d5a",
@@ -21,23 +21,23 @@
     "author": "G.R.R Martin",
     "img": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dc/A_Song_of_Ice_and_Fire_book_collection_box_set_cover.jpg/220px-A_Song_of_Ice_and_Fire_book_collection_box_set_cover.jpg",
     "price": 14,
-    "stock": 18
+    "stock": "20"
   },
   {
     "uuid": "4365441a-7f73-467c-8b64-15ede2f46cec",
     "title": "1984",
     "author": "Georges Orwell",
     "img": "https://m.media-amazon.com/images/I/61NAx5pd6XL._AC_UF1000,1000_QL80_.jpg",
-    "price": "20",
-    "stock": 10
+    "price": "19",
+    "stock": "84"
   },
   {
     "uuid": "37effe96-fbf7-4671-9ccd-ebed2f848334",
     "title": "Call of Cthulhu",
     "author": "H. P. Lovecraft",
     "img": "https://m.media-amazon.com/images/I/71tp-FB4JSL._AC_UF1000,1000_QL80_.jpg",
-    "price": 20,
-    "stock": 13
+    "price": "75",
+    "stock": "100"
   },
   {
     "uuid": "fb03bbd2-f884-4598-a52a-9248a4610e8e",
@@ -51,8 +51,16 @@
     "title": "The witcher",
     "author": "Andrzej Sapkowski",
     "img": "https://eleonorecotton.files.wordpress.com/2012/08/lepee_de_la_providence_2008.jpg?w=184&h=286",
-    "price": 10,
-    "stock": 10,
+    "price": "15",
+    "stock": "15",
     "uuid": "5aadf1ee-d136-44b0-a19d-0dbed503b8d8"
+  },
+  {
+    "title": "The Children of Men",
+    "author": "P. D. James",
+    "img": "https://m.media-amazon.com/images/I/81gVaWfB2uL._AC_UF1000,1000_QL80_.jpg",
+    "stock": "30",
+    "price": "5",
+    "uuid": "b7707d82-fa3b-4888-96f1-417a1874067c"
   }
 ]

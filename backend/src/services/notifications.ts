@@ -1,21 +1,31 @@
 import * as querystring from "querystring";
 import * as http from "http";
 import {MercureConfig} from "../configuration/Mercure";
+import {Book} from "../interface/book";
 
 /**
  * Send notification to Mercure
- * @param uuid
+ * @param uriTopic
+ * @param book
  * @param type
  * @param message
  */
-export const notifications = (uuid: string | null, type: string, message: string): void => {
+export const notifications = (
+  uriTopic: string | null,
+  type: string,
+  message: string,
+  book: Book | null
+): void => {
   const postData = querystring.stringify({
-    topic: (uuid !== null) ? `https://localhost/books/${uuid}` : 'https://localhost/books',
+    topic: `https://localhost/books/${uriTopic}`,
     data: JSON.stringify({
       type: type,
       message: message,
+      book: book
     })
   });
+
+  console.log(querystring.parse(postData))
 
   const req = http.request(MercureConfig as http.RequestOptions, (/*res*/) => {
     // console.log(`Status: ${res.statusCode}`);
