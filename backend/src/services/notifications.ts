@@ -10,7 +10,7 @@ import {MercureConfig} from "../configuration/Mercure";
  */
 export const notifications = (uuid: string | null, type: string, message: string): void => {
   const postData = querystring.stringify({
-    topic: 'https://localhost/books', //(uuid !== null) ? 'https://localhost/books/' + uuid : 'https://localhost/books',
+    topic: (uuid !== null) ? `https://localhost/books/${uuid}` : 'https://localhost/books',
     data: JSON.stringify({
       type: type,
       message: message,
