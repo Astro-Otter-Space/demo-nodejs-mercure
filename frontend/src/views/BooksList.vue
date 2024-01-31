@@ -32,11 +32,52 @@ const getBooks = async () => {
   booksRef.length = 0;
   try {
     const { dataBooks, mercureUrl } = await BooksWs.getBooks();
+
+    /**
+     * Event source Add element
+     * @type {EventSource}
+     */
+    const addEventSource = notification(mercureUrl, 'add');
+    addEventSource.onmessage = (e) => {
+      const result = JSON.parse(e.data);
+      toast(result.message, {
+        cardProps: {
+          color: result.type
+        },
+        prependIcon: 'mdi-check-circle'
+      });
+      booksRef.push(result.book)
+    };
+
+    addEventSource.onerror = () =>  {
+      console.log(`An error occurred while attempting to connect to Mercure Hub for topic "add"`)
+      addEventSource.close();
+    }
+
+    const rmEventSource = notification(mercureUrl, 'delete');
+    rmEventSource.onmessage = (e) => {
+      const result = JSON.parse(e.data);
+      toast(result.message, {
+        cardProps: {
+          color: result.type
+        },
+        prependIcon: 'mdi-check-circle'
+      });
+      const indexDeleteBook = booksRef.findIndex(item => item.uuid === result.book.uuid);
+      booksRef.splice(indexDeleteBook, 1);
+    };
+
+    rmEventSource.onerror = () =>  {
+      console.log(`An error occurred while attempting to connect to Mercure Hub for topic "delete"`)
+      rmEventSource.close();
+    }
+
     dataBooks.forEach(b => {
       const indexBook = dataBooks.findIndex(item => item.uuid === b.uuid);
       booksRef.push(b);
 
       const eventSourceBook = notification(mercureUrl, `edit/${b.uuid}`);
+      eventSourceBook.onopen= (e) => console.log(`Connexion established for ${b.title}`, e);
       eventSourceBook.onmessage = (e) => {
         const result = JSON.parse(e.data);
         if (-1 !== indexBook) {
@@ -48,48 +89,9 @@ const getBooks = async () => {
           });
           booksRef[indexBook] = result.book;
         }
-      }
+      };
+      eventSourceBook.onerror = () =>  eventSourceBook.close();
     });
-
-    /**
-     * Event source Add element
-     * @type {EventSource}
-     */
-    const addEventSource = notification(mercureUrl, 'add');
-    addEventSource.onmessage = (e) => {
-      const result = JSON.parse(e.data);
-      console.log('addEventSource', result);
-      toast(result.message, {
-        cardProps: {
-          color: result.type
-        },
-        prependIcon: 'mdi-check-circle'
-      });
-      booksRef.push(result.book)
-    };
-
-    addEventSource.onerror = () =>  {
-      console.log("An error occurred while attempting to connect to Mercure Hub.")
-      addEventSource.close();
-    }
-
-    const rmEventSource = notification(mercureUrl, 'delete');
-    rmEventSource.onmessage = (e) => {
-      const result = JSON.parse(e.data);
-      console.log('rmEventSource', result);
-      toast(result.message, {
-        cardProps: {
-          color: result.type
-        },
-        prependIcon: 'mdi-check-circle'
-      });
-    };
-
-    rmEventSource.onerror = () =>  {
-      console.log("An error occurred while attempting to connect to Mercure Hub.")
-      addEventSource.close();
-    }
-
   } catch (e) {
     console.log(e.message)
   }
