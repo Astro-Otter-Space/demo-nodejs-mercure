@@ -15,11 +15,12 @@ export const deleteBook = async (fileBooksData: string, uuid: string): Promise<v
 
     // Get index
     const indexBook: number = rawListBooks.findIndex(item => item.uuid === uuid);
+    const bookToDelete = rawListBooks.find(item => item.uuid === uuid);
     if (-1 !== indexBook) {
       // Remove item and write into JSON
       rawListBooks.splice(indexBook, 1);
       await fsPromises.writeFile(fileBooksData, JSON.stringify(rawListBooks, null, 2), 'utf-8');
-      notifications('delete', 'error', `Book ${uuid} have been removed from list.`, null);
+      notifications('delete', 'error', `Book ${uuid} have been removed from list.`, bookToDelete);
     }
   } catch (err: unknown) {
     throw new Error((err as Error).message);

@@ -1,7 +1,7 @@
-/**
- * HTTPS + libraries + ENV
- */
-import * as https from "https";
+  /**
+   * HTTPS + libraries + ENV
+   */
+import spdy from "spdy";
 import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 
@@ -29,7 +29,7 @@ const port: number = process.env.PORT_API ? parseInt(process.env.PORT_API) : 808
 
 app.use(cors());
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header('Access-Control-Allow-Origin', '* ');
+  res.header('Access-Control-Allow-Origin', "*");
   res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
   res.header('Access-Control-Expose-Headers', 'Link')
@@ -66,7 +66,7 @@ const options = {
   cert: fs.readFileSync(certificate),
   // ca: fs.readFileSync(ca)
 }
-https
+spdy
   .createServer(options, app)
   .listen(port, () => {
     console.log(`Server API is running on https://127.0.0.1:${port}`);
