@@ -33,4 +33,7 @@ coverage
 *.tsbuildinfo
 .env
 backend/.env
+backend/cert/localhost*
+backend/localhost*
 frontend/.env
+frontend/localhost.*

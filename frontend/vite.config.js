@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import fs from 'fs';
 
 import vue from '@vitejs/plugin-vue';
-import basicSsl from '@vitejs/plugin-basic-ssl'
-const path = require('path');
+import basicSsl from '@vitejs/plugin-basic-ssl';
+import * as path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,6 +18,7 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   },
   server: {
+    host: 'localhost',
     port: 8081,
     strictPort: true,
     https: {
