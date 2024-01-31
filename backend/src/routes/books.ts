@@ -46,8 +46,7 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               item: '#/components/schemas/Books'
+ *               $ref: '#/components/schemas/Books'
  *       404:
  *         description: Book not found
  *       500:
@@ -76,6 +75,9 @@
  *         in: path
  *         description: Unique UUID of book
  *         required: true
+ *     response:
+ *       200:
+ *         description: Success
  * components:
  *   schemas:
  *     Books:
@@ -149,7 +151,7 @@
  * Router
  */
 import { Router, Request, Response } from 'express';
-const router: Router = Router(); //express.Router();
+const router: Router = Router();
 
 import {StatusCodes} from "http-status-codes";
 import {join} from "path";
@@ -216,11 +218,7 @@ router.post('/', async (req: Request, res: Response): Promise<void> => {
     res
       .status(StatusCodes.CREATED)
       .json({
-        status: 'success',
-        data: {
-          uuid: newBook.uuid
-        },
-        message: `Successfully adding resource`
+        status: 'success'
       })
     ;
   } catch (err: unknown) {
@@ -243,11 +241,7 @@ router.put('/:uuid', async (req: Request, res: Response): Promise<void> => {
     res
       .status(StatusCodes.OK)
       .json({
-        status: 'success',
-        data: {
-          uuid: uuid
-        },
-        message: `Successfully updated resource with id ${req.params.uuid}`
+        status: 'success'
       });
   } catch (err: unknown) {
     res
@@ -266,9 +260,7 @@ router.delete('/:uuid', async (req: Request, res: Response): Promise<void> => {
     await deleteBook(fileBooksData, uuid);
 
     res.status(StatusCodes.OK).json({
-      status: 'success',
-      data: [],
-      message: `Successfully deleted resource with id ${req.params.uuid}`
+      status: 'success'
     });
   } catch (err: unknown) {
     res
