@@ -4,9 +4,11 @@
 import spdy from "spdy";
 import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
+const useSSL = !!process.env.SSL;
+
+console.log(useSSL);
 
 import swaggerUi from 'swagger-ui-express';
-// import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerOptions from "./swaggerOptions";
 
 import * as fs from "fs";
@@ -40,7 +42,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 const { __dirname } = fileDirName(import.meta);
 const privateKey: string = join(__dirname, 'cert', 'localhost.key');
 const certificate: string = join(__dirname, 'cert', 'localhost.crt');
-// const ca: string =  join(__dirname, 'data', 'localhost.csr');
 
 app.use(express.json());
 
