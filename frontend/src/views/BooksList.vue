@@ -73,10 +73,10 @@ const getBooks = async () => {
     }
 
     dataBooks.forEach(b => {
-      const indexBook = dataBooks.findIndex(item => item.uuid === b.uuid);
+      // const indexBook = dataBooks.findIndex(item => item.uuid === b.uuid);
       booksRef.push(b);
 
-      const eventSourceBook = notification(mercureUrl, `edit/${b.uuid}`);
+      /*const eventSourceBook = notification(mercureUrl, `edit/${b.uuid}`);
       eventSourceBook.onopen= (e) => console.log(`Connexion established for ${b.title}`, e);
       eventSourceBook.onmessage = (e) => {
         const result = JSON.parse(e.data);
@@ -90,7 +90,7 @@ const getBooks = async () => {
           booksRef[indexBook] = result.book;
         }
       };
-      eventSourceBook.onerror = () =>  eventSourceBook.close();
+      eventSourceBook.onerror = () =>  eventSourceBook.close();*/
     });
   } catch (e) {
     console.log(e.message)
