@@ -50,7 +50,7 @@ const getBooks = async () => {
     };
 
     addEventSource.onerror = () =>  {
-      console.log(`An error occurred while attempting to connect to Mercure Hub for topic "add"`)
+      console.error(`An error occurred while attempting to connect to Mercure Hub for topic "add"`)
       addEventSource.close();
     }
 
@@ -68,7 +68,7 @@ const getBooks = async () => {
     };
 
     rmEventSource.onerror = () =>  {
-      console.log(`An error occurred while attempting to connect to Mercure Hub for topic "delete"`)
+      console.error(`An error occurred while attempting to connect to Mercure Hub for topic "delete"`)
       rmEventSource.close();
     }
 
@@ -77,7 +77,7 @@ const getBooks = async () => {
       booksRef.push(b);
 
       const eventSourceBook = notification(mercureUrl, `edit/${b.uuid}`);
-      eventSourceBook.onopen= (e) => console.log(`Connexion established for ${b.title}`, e);
+      // eventSourceBook.onopen= (e) => console.log(`Connexion established for ${b.title}`, e);
       eventSourceBook.onmessage = (e) => {
         const result = JSON.parse(e.data);
         if (-1 !== indexBook) {

@@ -4,15 +4,15 @@
     "title": "Lord of the rings",
     "author": "J.R.R Tolkien",
     "img": "https://s26162.pcdn.co/wp-content/uploads/2017/05/the-lord-of-the-rings-book-cover.jpg",
-    "price": "150",
-    "stock": "100"
+    "price": 70,
+    "stock": 70
   },
   {
     "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",
     "title": "Harry Potter",
     "author": "J. K. Rowling",
     "img": "https://m.media-amazon.com/images/I/81Vuk+qsXRL._AC_UF1000,1000_QL80_.jpg",
-    "price": "60",
+    "price": "50",
     "stock": "50"
   },
   {
@@ -44,7 +44,7 @@
     "title": "Foundation",
     "author": "Isaac Asimov",
     "img": "https://m.media-amazon.com/images/I/41sIWKtP-4L.jpg",
-    "price": 30,
+    "price": "40",
     "stock": "10"
   },
   {
@@ -56,11 +56,11 @@
     "uuid": "5aadf1ee-d136-44b0-a19d-0dbed503b8d8"
   },
   {
-    "title": "The Children of Men",
-    "author": "P. D. James",
-    "img": "https://m.media-amazon.com/images/I/81gVaWfB2uL._AC_UF1000,1000_QL80_.jpg",
-    "stock": "30",
-    "price": "5",
-    "uuid": "b7707d82-fa3b-4888-96f1-417a1874067c"
+    "title": "Germinal",
+    "author": "Emile Zola",
+    "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
+    "stock": "1",
+    "price": "250",
+    "uuid": "52054243-1dfd-4b11-be04-19c9e54b2eab"
   }
 ]

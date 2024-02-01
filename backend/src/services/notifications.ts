@@ -1,5 +1,5 @@
 import * as querystring from "querystring";
-import * as http from "http";
+import https from "node:https";
 import {MercureConfig} from "../configuration/Mercure";
 import {Book} from "../interface/book";
 
@@ -25,17 +25,18 @@ export const notifications = (
     })
   });
 
-  console.log(querystring.parse(postData))
-
-  const req = http.request(MercureConfig as http.RequestOptions, (/*res*/) => {
-    // console.log(`Status: ${res.statusCode}`);
-    // console.log(`Headers: ${JSON.stringify(res.headers)}`);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  const req: RedirectableRequest<ClientQueryOptions, t> = https.request(MercureConfig, (res) => {
+    const chunks: unknown[] = [];
+    res.on('data', (chunk) => chunks.push(chunk));
+    res.on('error', (err: Error) => console.error(err));
   });
 
-  req.on('error', (e) => {
-    throw new Error(`Mercure error: ${e.message}`);
-  });
+  // req.on('error', (e) => {
+  //   throw new Error(`Mercure error: ${e.message}`);
+  // });
 
-  req.write(postData)
-  req.end()
+  req.write(postData);
+  req.end();
 }

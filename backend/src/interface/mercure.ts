@@ -4,4 +4,5 @@ export interface Mercure {
   path: string,
   method: string,
   headers: object,
+  maxRedirects: number
 }
