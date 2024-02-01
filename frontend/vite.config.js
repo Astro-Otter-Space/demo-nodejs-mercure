@@ -24,6 +24,7 @@ export default defineConfig({
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'localhost.key')),
       cert: fs.readFileSync(path.resolve(__dirname, 'localhost.crt'))
-    }
+    },
+    h2: true
   }
 })
