@@ -2,6 +2,7 @@ import * as querystring from "querystring";
 import https from "node:https";
 import {MercureConfig} from "../configuration/Mercure";
 import {Book} from "../interface/book";
+import {RedirectableRequest} from "follow-redirects";
 
 /**
  * Send notification to Mercure
@@ -16,7 +17,8 @@ export const notifications = (
   message: string,
   book: Book | null
 ): void => {
-  const postData = querystring.stringify({
+
+  const postData: string = querystring.stringify({
     topic: `https://localhost/books/${uriTopic}`,
     data: JSON.stringify({
       type: type,
@@ -25,12 +27,10 @@ export const notifications = (
     })
   });
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
-  const req: RedirectableRequest<ClientQueryOptions, t> = https.request(MercureConfig, (res) => {
+  const req = https.request(MercureConfig, (res) => {
     const chunks: unknown[] = [];
     res.on('data', (chunk) => chunks.push(chunk));
-    res.on('error', (err: Error) => console.error(err));
+    res.on('error', (err: Error) => console.error(`Mercure error: ${err.message}`));
   });
 
   // req.on('error', (e) => {
