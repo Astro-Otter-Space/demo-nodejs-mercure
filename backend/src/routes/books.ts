@@ -236,6 +236,7 @@ router.put('/:uuid', async (req: Request, res: Response): Promise<void> => {
   try {
     const uuid: string = req.params.uuid;
     const updatedBook: Book = {...req.body, uuid: uuid};
+
     await putBook(fileBooksData, updatedBook);
 
     res

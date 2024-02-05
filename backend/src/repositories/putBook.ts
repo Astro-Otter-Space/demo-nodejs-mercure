@@ -14,7 +14,7 @@ export const putBook = async (fileBooksData: string, updatedBook: Book): Promise
 
       notifications(`edit/${updatedBook.uuid}`, 'info', `“${updatedBook.title}” by ${updatedBook.author} have been updated.`, updatedBook);
     }
-  } catch (err: unknown) {
-    throw new Error(`Error cant update book "${updatedBook.uuid}"`);
+  } catch (err) {
+    throw new Error(`Error cant update book "${updatedBook.uuid}": ${err}`);
   }
 }

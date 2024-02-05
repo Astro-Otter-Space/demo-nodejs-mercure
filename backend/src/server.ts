@@ -4,9 +4,7 @@
 import spdy from "spdy";
 import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
-const useSSL = !!process.env.SSL;
-
-console.log(useSSL);
+// const useSSL = !!process.env.SSL;
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerOptions from "./swaggerOptions";
@@ -44,7 +42,6 @@ const privateKey: string = join(__dirname, 'cert', 'localhost.key');
 const certificate: string = join(__dirname, 'cert', 'localhost.crt');
 
 app.use(express.json());
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
 /**
@@ -65,10 +62,10 @@ app.use('/books', books);
 const options = {
   key: fs.readFileSync(privateKey),
   cert: fs.readFileSync(certificate),
-  // ca: fs.readFileSync(ca)
-}
+};
+
 spdy
   .createServer(options, app)
   .listen(port, () => {
     console.log(`Server API is running on https://127.0.0.1:${port}`);
-});
+  });

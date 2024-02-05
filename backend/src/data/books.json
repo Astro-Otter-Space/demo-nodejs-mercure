@@ -4,23 +4,23 @@
     "title": "Lord of the rings",
     "author": "J.R.R Tolkien",
     "img": "https://s26162.pcdn.co/wp-content/uploads/2017/05/the-lord-of-the-rings-book-cover.jpg",
-    "price": 70,
-    "stock": 70
+    "price": "130",
+    "stock": 120
   },
   {
     "uuid": "7e79b947-1a64-4c5d-b402-9cf588bff54b",
     "title": "Harry Potter",
     "author": "J. K. Rowling",
     "img": "https://m.media-amazon.com/images/I/81Vuk+qsXRL._AC_UF1000,1000_QL80_.jpg",
-    "price": "50",
-    "stock": "50"
+    "price": "46",
+    "stock": "44"
   },
   {
     "uuid": "c377559f-a971-4183-8b5b-0d93608d3d5a",
     "title": "A song of ice and fire",
     "author": "G.R.R Martin",
     "img": "https://upload.wikimedia.org/wikipedia/en/thumb/d/dc/A_Song_of_Ice_and_Fire_book_collection_box_set_cover.jpg/220px-A_Song_of_Ice_and_Fire_book_collection_box_set_cover.jpg",
-    "price": 14,
+    "price": "15",
     "stock": "20"
   },
   {
@@ -36,7 +36,7 @@
     "title": "Call of Cthulhu",
     "author": "H. P. Lovecraft",
     "img": "https://m.media-amazon.com/images/I/71tp-FB4JSL._AC_UF1000,1000_QL80_.jpg",
-    "price": "75",
+    "price": "80",
     "stock": "100"
   },
   {
@@ -54,13 +54,5 @@
     "price": "15",
     "stock": "15",
     "uuid": "5aadf1ee-d136-44b0-a19d-0dbed503b8d8"
-  },
-  {
-    "title": "Germinal",
-    "author": "Emile Zola",
-    "img": "https://m.media-amazon.com/images/I/81X-F1nE0IL._AC_UF1000,1000_QL80_.jpg",
-    "stock": "1",
-    "price": "250",
-    "uuid": "52054243-1dfd-4b11-be04-19c9e54b2eab"
   }
 ]
