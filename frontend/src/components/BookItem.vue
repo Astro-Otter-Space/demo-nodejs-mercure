@@ -1,67 +1,71 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="400"
-  >
-    <v-img
-      :src="book.img"
-      height="200px"
-      cover
-    ></v-img>
-    <v-card-title>
-      {{ book.title }}
-    </v-card-title>
-    <v-card-subtitle>
-      {{ book.author }}
-    </v-card-subtitle>
-    <v-divider class="mx-4 mb-1"></v-divider>
-    <div class="px-4">
-      <v-chip-group>
-        <v-chip
-          variant="outlined"
-          color="orange"
+  <v-hover v-slot:default="{ isHovering, props }">
+    <v-card
+      class="mx-auto"
+      max-width="400"
+      :elevation="isHovering ? 10 : 1"
+      v-bind="props"
+    >
+      <v-img
+        :src="book.img"
+        height="200px"
+        cover
+      ></v-img>
+      <v-card-title>
+        {{ book.title }}
+      </v-card-title>
+      <v-card-subtitle>
+        {{ book.author }}
+      </v-card-subtitle>
+      <v-divider class="mx-4 mb-1"></v-divider>
+      <div class="px-4">
+        <div class="d-flex ga-2 mt-2">
+          <v-chip
+            variant="outlined"
+            color="orange"
+          >
+            {{ book.price }} &euro;
+          </v-chip>
+          <v-chip
+            variant="outlined"
+            color="purple"
+          >
+            Stock: {{ book.stock }}
+          </v-chip>
+        </div>
+      </div>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          size="small"
+          icon="mdi-cart-plus"
+          color="yellow"
+          :disabled="isDisable"
+          title="Buy one"
         >
-          {{ book.price }} &euro;
-        </v-chip>
-        <v-chip
-          variant="outlined"
-          class="mr-1 mt-1"
-          color="purple"
+        </v-btn>
+
+        <v-btn
+          size="small"
+          icon="mdi-book-edit"
+          color="blue"
+          @click="clickEditBook"
+          title="Edit book"
+          aria-label="Edit book"
         >
-          Stock: {{ book.stock }}
-        </v-chip>
-      </v-chip-group>
-    </div>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        size="small"
-        icon="mdi-cart-plus"
-        color="yellow"
-        :disabled="isDisable"
-      >
-      </v-btn>
+        </v-btn>
 
-      <v-btn
-        size="small"
-        icon="mdi-book-edit"
-        color="blue"
-        @click="clickEditBook"
-        alt="Edit book"
-        aria-label="Edit book"
-      >
-      </v-btn>
-
-      <v-btn
-        size="small"
-        icon="mdi-delete-outline"
-        @click="clickDeleteBook"
-        color="red"
-        alt="Delete book"
-        aria-label="Delete book"
-      ></v-btn>
-    </v-card-actions>
-  </v-card>
+        <v-btn
+          size="small"
+          icon="mdi-delete-outline"
+          @click="clickDeleteBook"
+          color="red"
+          title="Delete book"
+          aria-label="Delete book"
+        ></v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-hover>
 </template>
 
 <script setup>
@@ -75,10 +79,11 @@ const props = defineProps({
 });
 
 const { book } = toRefs(props);
-const isDisable = computed(() => true /*0 === book.value.stock*/ )
+const isDisable = computed(() => 0 === book.value.stock )
 const emit = defineEmits(['click-edit-book' ,'click-delete-book']);
 const clickEditBook = () => emit('click-edit-book');
 const clickDeleteBook = () => emit('click-delete-book');
+
 </script>
 
 <style lang="scss">

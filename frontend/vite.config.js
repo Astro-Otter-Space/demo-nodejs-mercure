@@ -19,7 +19,9 @@ export default defineConfig({
   },
   server: {
     host: 'localhost',
+    open: true,
     port: 8081,
+    force: true,
     strictPort: true,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, 'localhost.key')),

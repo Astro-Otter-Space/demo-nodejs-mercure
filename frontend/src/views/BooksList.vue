@@ -6,6 +6,7 @@ import {toast} from "vuetify-sonner";
 /**
  * Variables
  */
+let addEventSource, rmEventSource = null;
 const booksRef = reactive([]);
 const isModalOpen = ref(false);
 const titleModal = ref('');
@@ -50,8 +51,8 @@ const getBooks = async () => {
     };
 
     addEventSource.onerror = () =>  {
-      console.error(`An error occurred while attempting to connect to Mercure Hub for topic "add"`)
-      addEventSource.close();
+      // console.error(`An error occurred while attempting to connect to Mercure Hub for topic "add"`)
+      reconnectEventSource(addEventSource);
     }
 
     const rmEventSource = notification(mercureUrl, 'delete');
@@ -69,7 +70,7 @@ const getBooks = async () => {
 
     rmEventSource.onerror = () =>  {
       console.error(`An error occurred while attempting to connect to Mercure Hub for topic "delete"`)
-      rmEventSource.close();
+      reconnectEventSource(rmEventSource);
     }
 
     dataBooks.forEach(b => {
@@ -149,6 +150,13 @@ const closeModal = () => {
   isModalOpen.value = false;
 }
 
+
+const reconnectEventSource = (eventSource) => {
+  if (eventSource) {
+    eventSource.close();
+  }
+  setTimeout(getBooks, 3000);
+}
 /**
  * On MOUNT
  */
@@ -173,7 +181,7 @@ onMounted(() => getBooks());
     > Add book </v-btn>
   </div>
 
-  <v-container fluid>
+  <v-container grid-list-lg>
     <v-row dense>
       <v-col
         v-for="book in booksRef"
@@ -189,8 +197,6 @@ onMounted(() => getBooks());
       </v-col>
     </v-row>
   </v-container>
-
-
 
   <Modal
     :title="titleModal"
