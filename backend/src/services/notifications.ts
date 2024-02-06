@@ -35,7 +35,7 @@ export const notifications = (
       throw new Error(`Mercure response error: ${err.message}`)
     });
   });
-console.log(req);
+
   req.on('error', (e) => {
     throw new Error(`Mercure request error: ${e.message}`);
   });

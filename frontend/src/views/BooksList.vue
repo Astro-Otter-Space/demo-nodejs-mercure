@@ -51,7 +51,6 @@ const getBooks = async () => {
     };
 
     addEventSource.onerror = () =>  {
-      // console.error(`An error occurred while attempting to connect to Mercure Hub for topic "add"`)
       reconnectEventSource(addEventSource);
     }
 
@@ -69,7 +68,6 @@ const getBooks = async () => {
     };
 
     rmEventSource.onerror = () =>  {
-      console.error(`An error occurred while attempting to connect to Mercure Hub for topic "delete"`)
       reconnectEventSource(rmEventSource);
     }
 
@@ -122,6 +120,14 @@ const handleModalForm = async (submittedData) => {
   closeModal();
 }
 
+const sendBuyBook = async (uuid) => {
+  try {
+    await BooksWs.buyBook(uuid);
+  } catch (e) {
+    console.log(e.message)
+  }
+}
+
 /**
  * Modal
  */
@@ -153,6 +159,7 @@ const closeModal = () => {
 
 const reconnectEventSource = (eventSource) => {
   if (eventSource) {
+    console.error(`An error occurred while attempting to connect to Mercure Hub for topic "${eventSource.url}"`)
     eventSource.close();
   }
   setTimeout(getBooks, 3000);
@@ -178,7 +185,13 @@ onMounted(() => getBooks());
       class="mr-5 mt-5"
       text-align="center"
       @click="openAddModal"
-    > Add book </v-btn>
+    >
+      <v-icon
+        start
+        icon="mdi-plus"
+      >
+      </v-icon>
+      Add book </v-btn>
   </div>
 
   <v-container grid-list-lg>
@@ -191,6 +204,7 @@ onMounted(() => getBooks());
         <BookItem
           v-bind:key="book"
           :book="book"
+          @click-buy-book="sendBuyBook(book.uuid)"
           @click-edit-book="openEditModal(book)"
           @click-delete-book="deleteBooks(book.uuid)"
         ></BookItem>

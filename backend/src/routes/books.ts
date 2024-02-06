@@ -78,6 +78,19 @@
  *     response:
  *       200:
  *         description: Success
+ * /books/{uuid}/buy:
+ *  patch:
+ *    summary: Decrease only stock value
+ *    tags: [Books]
+ *    url: /buy
+ *    parameters:
+ *      - name: uuid
+ *        in: path
+ *        description: Unique UUID of book
+ *        required: true
+ *    responses:
+ *      200:
+ *        description: Success
  * components:
  *   schemas:
  *     Books:
@@ -238,6 +251,29 @@ router.put('/:uuid', async (req: Request, res: Response): Promise<void> => {
     const updatedBook: Book = {...req.body, uuid: uuid};
 
     await putBook(fileBooksData, updatedBook);
+
+    res
+      .status(StatusCodes.OK)
+      .json({
+        status: 'success'
+      });
+  } catch (err: unknown) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({
+          message: (err as Error).message,
+          error: err
+        }
+      );
+  }
+});
+
+router.patch('/:uuid/buy', async (req: Request, res: Response): Promise<void> => {
+  try {
+    const uuid: string = req.params.uuid;
+    const book: Book = getBook(fileBooksData, uuid);
+    book.stock--;
+    await putBook(fileBooksData, book);
 
     res
       .status(StatusCodes.OK)
