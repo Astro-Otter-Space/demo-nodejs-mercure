@@ -1,70 +1,67 @@
 <template>
-  <div class="book-item d-flex align-center pa-5">
-    <v-avatar size="40">
-      <v-img :src="book.img"></v-img>
-    </v-avatar>
-    <div class="flex-fill mx-5">
-      <div
-        class="font-weight-bold"
-      >
-        {{ book.title }}
-      </div>
-      <div
-        class=""
-      >
-        {{ book.author }}
-      </div>
-      <div>
+  <v-card
+    class="mx-auto"
+    max-width="400"
+  >
+    <v-img
+      :src="book.img"
+      height="200px"
+      cover
+    ></v-img>
+    <v-card-title>
+      {{ book.title }}
+    </v-card-title>
+    <v-card-subtitle>
+      {{ book.author }}
+    </v-card-subtitle>
+    <v-divider class="mx-4 mb-1"></v-divider>
+    <div class="px-4">
+      <v-chip-group>
         <v-chip
-          size="x-small"
           variant="outlined"
-          class="mr-1 mt-1"
           color="orange"
         >
           {{ book.price }} &euro;
         </v-chip>
-
         <v-chip
-          size="x-small"
           variant="outlined"
           class="mr-1 mt-1"
           color="purple"
         >
           Stock: {{ book.stock }}
         </v-chip>
-      </div>
+      </v-chip-group>
     </div>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        size="small"
+        icon="mdi-cart-plus"
+        color="yellow"
+        :disabled="isDisable"
+      >
+      </v-btn>
 
-    <v-btn
-      size="small"
-      icon="mdi-cart-plus"
-      color="yellow"
-      class="mr-1 mt-1 d-none"
-      :disabled="isDisable"
-    >
-    </v-btn>
+      <v-btn
+        size="small"
+        icon="mdi-book-edit"
+        color="blue"
+        @click="clickEditBook"
+        alt="Edit book"
+        aria-label="Edit book"
+      >
+      </v-btn>
 
-    <v-btn
-      size="small"
-      icon="mdi-book-edit"
-      color="blue"
-      class="mr-1 mt-1"
-      @click="clickEditBook"
-      alt="Edit book"
-      aria-label="Edit book"
-    >
-    </v-btn>
-
-    <v-btn
-      size="small"
-      icon="mdi-delete-outline"
-      class="mr-1 mt-1"
-      @click="clickDeleteBook"
-      color="red"
-      alt="Delete book"
-      aria-label="Delete book"
-    ></v-btn>
-  </div>
+      <v-btn
+        size="small"
+        icon="mdi-delete-outline"
+        @click="clickDeleteBook"
+        color="red"
+        alt="Delete book"
+        aria-label="Delete book"
+      ></v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script setup>

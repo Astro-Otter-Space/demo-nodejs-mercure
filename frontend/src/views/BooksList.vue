@@ -173,13 +173,24 @@ onMounted(() => getBooks());
     > Add book </v-btn>
   </div>
 
-  <BookItem
-    v-for="book in booksRef"
-    v-bind:key="book"
-    :book="book"
-    @click-edit-book="openEditModal(book)"
-    @click-delete-book="deleteBooks(book.uuid)"
-  ></BookItem>
+  <v-container fluid>
+    <v-row dense>
+      <v-col
+        v-for="book in booksRef"
+        :key="book.title"
+        :cols="4"
+      >
+        <BookItem
+          v-bind:key="book"
+          :book="book"
+          @click-edit-book="openEditModal(book)"
+          @click-delete-book="deleteBooks(book.uuid)"
+        ></BookItem>
+      </v-col>
+    </v-row>
+  </v-container>
+
+
 
   <Modal
     :title="titleModal"
