@@ -31,7 +31,7 @@ app.use(cors());
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.header('Access-Control-Allow-Origin', "*");
   res.header('Access-Control-Allow-Headers', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, PATCH');
   res.header('Access-Control-Expose-Headers', 'Link')
   res.header('Link', `<${process.env.MERCURE_PUBLIC_URL}>; rel="mercure"`)
   next();
