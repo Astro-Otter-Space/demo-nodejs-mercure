@@ -18,7 +18,6 @@ export const notifications = (
   book: Book | null
 ): void => {
 
-
   const postData: string = querystring.stringify({
     topic: `https://localhost/books/${uriTopic}`,
     data: JSON.stringify({
