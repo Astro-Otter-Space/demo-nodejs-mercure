@@ -162,7 +162,7 @@ const reconnectEventSource = (eventSource) => {
     console.error(`An error occurred while attempting to connect to Mercure Hub for topic "${eventSource.url}"`)
     eventSource.close();
   }
-  setTimeout(getBooks, 3000);
+  // setTimeout(getBooks, 3000);
 }
 /**
  * On MOUNT
