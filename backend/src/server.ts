@@ -1,7 +1,9 @@
   /**
    * HTTPS + libraries + ENV
    */
-import spdy from "spdy";
+// import spdy from "spdy";
+import http2 from "http2";
+import http2Express from "http2-express-bridge";
 import express, {NextFunction, Request, Response} from 'express';
 import cors from 'cors';
 // const useSSL = !!process.env.SSL;
@@ -24,7 +26,7 @@ import {fileDirName} from "./services/fileDirName";
 /**
  * Express, CORS
  */
-const app = express();
+const app = http2Express(express);
 const port: number = process.env.PORT_API ? parseInt(process.env.PORT_API) : 8080;
 
 app.use(cors());
@@ -64,8 +66,8 @@ const options = {
   cert: fs.readFileSync(certificate),
 };
 
-spdy
-  .createServer(options, app)
+http2
+  .createSecureServer(options, app)
   .listen(port, () => {
     console.log(`Server API is running on https://127.0.0.1:${port}`);
   });
